@@ -1,22 +1,19 @@
 """validate_json.py 单元测试。"""
 
 import json
-from pathlib import Path
-
-import pytest
 
 # 导入被测模块
 import sys
+from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "hooks"))
 
 from validate_json import (
-    validate_file,
     ID_PATTERN,
+    REQUIRED_FIELDS,
     URL_PATTERN,
     VALID_STATUSES,
-    REQUIRED_FIELDS,
-    MIN_SUMMARY_LENGTH,
-    MIN_TAGS_COUNT,
+    validate_file,
 )
 
 
@@ -96,7 +93,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert errors == []
 
@@ -113,7 +110,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("source_url" in e for e in errors)
 
@@ -130,7 +127,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("ID 格式错误" in e for e in errors)
 
@@ -147,7 +144,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("status 值无效" in e for e in errors)
 
@@ -164,7 +161,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("摘要过短" in e for e in errors)
 
@@ -181,7 +178,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("标签数量不足" in e for e in errors)
 
@@ -199,7 +196,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("score 超出范围" in e for e in errors)
 
@@ -216,7 +213,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("URL 格式无效" in e for e in errors)
 
@@ -225,7 +222,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             f.write("not json")
-        
+
         errors = validate_file(filepath)
         assert any("JSON 解析失败" in e for e in errors)
 
@@ -234,7 +231,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump([1, 2, 3], f)
-        
+
         errors = validate_file(filepath)
         assert any("顶层结构必须是对象" in e for e in errors)
 
@@ -258,7 +255,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert errors == []
 
@@ -276,7 +273,7 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert errors == []
 
@@ -294,6 +291,6 @@ class TestValidateFile:
         filepath = tmp_path / "test.json"
         with open(filepath, "w") as f:
             json.dump(article, f)
-        
+
         errors = validate_file(filepath)
         assert any("audience 值无效" in e for e in errors)

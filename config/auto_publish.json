@@ -1,0 +1,7 @@
+{
+  "enabled": false,
+  "publish_time": "10:00",
+  "strategy": "highest_score",
+  "min_score": 8,
+  "publish_count": 1
+}

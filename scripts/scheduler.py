@@ -11,7 +11,6 @@ import logging
 import subprocess
 import sys
 import time
-from datetime import datetime
 from pathlib import Path
 
 try:
@@ -19,6 +18,11 @@ try:
 except ImportError:
     print("请安装 schedule: pip install schedule")
     sys.exit(1)
+
+# 加载环境变量
+from dotenv import load_dotenv
+
+load_dotenv(PROJECT_ROOT / ".env" if 'PROJECT_ROOT' in dir() else Path(__file__).resolve().parent.parent / ".env")
 
 # 配置日志
 logging.basicConfig(
@@ -56,7 +60,7 @@ def run_pipeline(steps: list[int], job_name: str, date_filter: str = None):
             str(PIPELINE_SCRIPT),
             "--step",
         ]
-        
+
         # 添加所有步骤
         cmd.extend([str(s) for s in steps])
 
@@ -105,25 +109,90 @@ def job_full_pipeline():
     run_pipeline(steps=[1, 2, 3, 4], job_name="完整流水线")
 
 
+def load_auto_publish_config() -> dict:
+    """加载自动发布配置。"""
+    config_file = PROJECT_ROOT / "config" / "auto_publish.json"
+    if config_file.exists():
+        try:
+            import json
+            return json.loads(config_file.read_text(encoding="utf-8"))
+        except Exception as e:
+            logger.warning(f"读取自动发布配置失败: {e}")
+    return {"enabled": False, "publish_time": "10:00"}
+
+
+def job_auto_publish():
+    """定时任务：自动发布文章。"""
+    config = load_auto_publish_config()
+
+    if not config.get("enabled", False):
+        logger.info("自动发布已禁用，跳过")
+        return
+
+    logger.info("=" * 50)
+    logger.info("开始自动发布任务")
+    logger.info("=" * 50)
+
+    try:
+        cmd = [
+            sys.executable,
+            str(PROJECT_ROOT / "scripts" / "publish_wechat.py"),
+        ]
+
+        # 添加选择策略参数
+        strategy = config.get("strategy", "highest_score")
+        min_score = config.get("min_score", 8)
+        publish_count = config.get("publish_count", 1)
+
+        result = subprocess.run(
+            cmd,
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+
+        if result.returncode == 0:
+            logger.info("自动发布成功")
+            if result.stdout:
+                logger.debug(f"输出: {result.stdout[-500:]}")
+        else:
+            logger.error(f"自动发布失败 (返回码: {result.returncode})")
+            if result.stderr:
+                logger.error(f"错误: {result.stderr[-500:]}")
+    except subprocess.TimeoutExpired:
+        logger.error("自动发布超时")
+    except Exception as e:
+        logger.error(f"自动发布异常: {e}")
+
+
 def job_collect_and_analyze():
     """定时任务：采集新数据并处理所有未分析的数据。"""
     logger.info("=" * 50)
     logger.info("开始定时任务：采集 + 分析 + 整理 + 保存")
     logger.info("=" * 50)
-    
+
     # 运行完整流水线（处理所有未处理的数据）
     run_pipeline(steps=[1, 2, 3, 4], job_name="定时流水线")
-    
+
     logger.info("定时任务执行完毕")
 
 
 def setup_schedule():
     """配置定时任务。"""
-    # 每天 08:00 采集 + 分析
+    # 读取自动发布配置
+    config = load_auto_publish_config()
+    publish_time = config.get("publish_time", "10:00")
+
+    # 每天 08:00 采集 + 分析 + 整理 + 保存
     schedule.every().day.at("08:00").do(job_collect_and_analyze).tag("采集+分析", "每日")
 
-    # 可选：每 6 小时采集一次
-    # schedule.every(6).hours.do(job_collect).tag("采集", "频繁")
+    # 每天指定时间自动发布（如果启用）
+    if config.get("enabled", False):
+        schedule.every().day.at(publish_time).do(job_auto_publish).tag("自动发布", "每日")
+        logger.info(f"自动发布已启用，发布时间: {publish_time}")
+    else:
+        logger.info("自动发布已禁用")
 
     logger.info("定时任务配置完成:")
     for job in schedule.get_jobs():

@@ -1,28 +1,24 @@
 """pipeline.py 核心函数单元测试。"""
 
 import json
-from datetime import datetime, timezone
-from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
 
 # 导入被测模块
 import sys
+from datetime import datetime
+from pathlib import Path
+from unittest.mock import patch
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "pipeline"))
 
 from pipeline import (
     _now_iso,
     deduplicate,
-    validate_item,
-    standardize_item,
     load_raw_data,
-    load_unanalyzed_data,
-    load_unorganized_data,
-    load_organized_data,
-    update_raw_data_status,
-    save_raw_data,
     load_rss_sources,
+    save_raw_data,
+    standardize_item,
+    update_raw_data_status,
+    validate_item,
 )
 
 
@@ -139,7 +135,7 @@ class TestStandardizeItem:
             "topics": ["llm"],
         }
         result = standardize_item(item)
-        
+
         assert result["title"] == "Test Title"
         assert result["source_url"] == "https://example.com"
         assert result["source_type"] == "github"
@@ -160,7 +156,7 @@ class TestStandardizeItem:
             "source": "rss",
         }
         result = standardize_item(item)
-        
+
         assert result["content"] == ""
         assert result["source_metadata"]["stars"] == 0
         assert result["source_metadata"]["language"] == ""
@@ -184,7 +180,7 @@ class TestStandardizeItem:
             "key_points": ["Point 1"],
         }
         result = standardize_item(item)
-        
+
         assert result["summary"] == "Test summary"
         assert result["score"] == 8
         assert result["tags"] == ["LLM"]
@@ -199,7 +195,7 @@ class TestLoadRawData:
         """空目录应该返回空列表。"""
         raw_dir = tmp_dir / "raw"
         raw_dir.mkdir()
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data()
         assert result == []
@@ -207,7 +203,7 @@ class TestLoadRawData:
     def test_loads_data(self, sample_raw_data_file):
         """应该正确加载数据。"""
         raw_dir = sample_raw_data_file.parent
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data()
         assert len(result) == 2
@@ -217,12 +213,12 @@ class TestLoadRawData:
         # 创建两个文件，包含相同 URL
         data1 = [{"url": "https://example.com/1", "title": "A"}]
         data2 = [{"url": "https://example.com/1", "title": "A"}, {"url": "https://example.com/2", "title": "B"}]
-        
+
         with open(raw_dir / "file1.json", "w") as f:
             json.dump(data1, f)
         with open(raw_dir / "file2.json", "w") as f:
             json.dump(data2, f)
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data()
         assert len(result) == 2
@@ -234,10 +230,10 @@ class TestLoadRawData:
             {"url": "https://example.com/2", "title": "B", "analyzed": True},
             {"url": "https://example.com/3", "title": "C"},
         ]
-        
+
         with open(raw_dir / "file.json", "w") as f:
             json.dump(data, f)
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data(status_filter="unanalyzed")
         assert len(result) == 2  # 未分析的 + 没有 analyzed 字段的
@@ -249,10 +245,10 @@ class TestLoadRawData:
             {"url": "https://example.com/2", "title": "B", "analyzed": True, "organized": False},
             {"url": "https://example.com/3", "title": "C", "analyzed": False},
         ]
-        
+
         with open(raw_dir / "file.json", "w") as f:
             json.dump(data, f)
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data(status_filter="organized")
         assert len(result) == 1
@@ -261,12 +257,12 @@ class TestLoadRawData:
         """应该按日期过滤文件。"""
         data1 = [{"url": "https://example.com/1", "title": "A"}]
         data2 = [{"url": "https://example.com/2", "title": "B"}]
-        
+
         with open(raw_dir / "github_20260501_074357.json", "w") as f:
             json.dump(data1, f)
         with open(raw_dir / "github_20260502_074357.json", "w") as f:
             json.dump(data2, f)
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data(date_filter="20260501")
         assert len(result) == 1
@@ -277,10 +273,10 @@ class TestLoadRawData:
             {"url": f"https://example.com/{i}", "title": f"T{i}"}
             for i in range(10)
         ]
-        
+
         with open(raw_dir / "file.json", "w") as f:
             json.dump(data, f)
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data(limit=5)
         assert len(result) == 5
@@ -290,10 +286,10 @@ class TestLoadRawData:
         data = [
             {"source_url": "https://example.com/1", "title": "A"},
         ]
-        
+
         with open(raw_dir / "file.json", "w") as f:
             json.dump(data, f)
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = load_raw_data()
         assert result[0]["url"] == "https://example.com/1"
@@ -306,12 +302,12 @@ class TestUpdateRawDataStatus:
         """应该更新状态字段。"""
         raw_dir = sample_raw_data_file.parent
         url = "https://github.com/test/repo1"
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = update_raw_data_status(url, "analyzed", True)
-        
+
         assert result is True
-        
+
         # 验证更新
         with open(sample_raw_data_file) as f:
             items = json.load(f)
@@ -321,10 +317,10 @@ class TestUpdateRawDataStatus:
     def test_returns_false_for_missing_url(self, sample_raw_data_file):
         """不存在的 URL 应该返回 False。"""
         raw_dir = sample_raw_data_file.parent
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             result = update_raw_data_status("https://not-found.com", "analyzed", True)
-        
+
         assert result is False
 
 
@@ -337,10 +333,10 @@ class TestSaveRawData:
             {"url": "https://example.com/1", "title": "A"},
             {"url": "https://example.com/2", "title": "B"},
         ]
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             filepath = save_raw_data(items, "github")
-        
+
         assert filepath.exists()
         with open(filepath) as f:
             saved = json.load(f)
@@ -349,10 +345,10 @@ class TestSaveRawData:
     def test_creates_timestamped_filename(self, raw_dir):
         """应该创建带时间戳的文件名。"""
         items = [{"url": "https://example.com/1"}]
-        
+
         with patch("pipeline.RAW_DIR", raw_dir):
             filepath = save_raw_data(items, "github")
-        
+
         assert "github_" in filepath.name
         assert filepath.suffix == ".json"
 
@@ -364,15 +360,15 @@ class TestLoadRssSources:
         """应该只加载启用的源。"""
         with patch("pipeline.RSS_SOURCES_FILE", sample_rss_sources):
             result = load_rss_sources()
-        
+
         assert len(result) == 1
         assert result[0]["name"] == "Test Source"
 
     def test_returns_empty_for_missing_file(self, tmp_dir):
         """文件不存在应该返回空列表。"""
         config_file = tmp_dir / "nonexistent.yaml"
-        
+
         with patch("pipeline.RSS_SOURCES_FILE", config_file):
             result = load_rss_sources()
-        
+
         assert result == []

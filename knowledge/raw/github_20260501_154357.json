@@ -31,7 +31,8 @@
       "transformer",
       "vlm"
     ],
-    "collected_at": "2026-05-01T07:43:57.595349+00:00"
+    "collected_at": "2026-05-01T07:43:57.595349+00:00",
+    "analyzed": true
   },
   {
     "source": "github",
@@ -65,7 +66,8 @@
       "python",
       "rag"
     ],
-    "collected_at": "2026-05-01T07:43:57.595369+00:00"
+    "collected_at": "2026-05-01T07:43:57.595369+00:00",
+    "analyzed": true
   },
   {
     "source": "github",
@@ -85,6 +87,7 @@
       "metagpt",
       "multi-agent"
     ],
-    "collected_at": "2026-05-01T07:43:57.595372+00:00"
+    "collected_at": "2026-05-01T07:43:57.595372+00:00",
+    "analyzed": true
   }
 ]

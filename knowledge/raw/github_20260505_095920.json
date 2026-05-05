@@ -1,0 +1,35 @@
+[
+  {
+    "source": "github",
+    "source_id": "575865240",
+    "title": "AstrBotDevs/AstrBot",
+    "url": "https://github.com/AstrBotDevs/AstrBot",
+    "description": "AI Agent Assistant & development framework that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨",
+    "language": "Python",
+    "stars": 31324,
+    "forks": 2158,
+    "created_at": "2022-12-08T13:27:46Z",
+    "updated_at": "2026-05-05T01:34:39Z",
+    "topics": [
+      "agent",
+      "ai",
+      "chatbot",
+      "chatgpt",
+      "discord",
+      "docker",
+      "gemini",
+      "gpt",
+      "llama",
+      "llm",
+      "mcp",
+      "openai",
+      "python",
+      "qq",
+      "qqbot",
+      "telegram"
+    ],
+    "collected_at": "2026-05-05T01:59:20.605382+00:00",
+    "analyzed": true,
+    "organized": true
+  }
+]

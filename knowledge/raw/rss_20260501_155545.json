@@ -6,7 +6,9 @@
     "url": "https://www.theguardian.com/technology/2026/may/01/uk-job-hunters-frustration-ai-interviews",
     "description": "Article URL: https://www.theguardian.com/technology/2026/may/01/uk-job-hunters-frustration-ai-interviews\nComments URL: https://news.ycombinator.com/item?id=47971923\nPoints: 5\n# Comments: 4",
     "published_at": "Fri, 01 May 2026 06:52:57 +0000",
-    "collected_at": "2026-05-01T07:55:45.475918+00:00"
+    "collected_at": "2026-05-01T07:55:45.475918+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -15,7 +17,9 @@
     "url": "https://news.ycombinator.com/item?id=47971901",
     "description": "Is the mechanism more like a smart proxy or do these cloud providers host and serve Anthropic models? if latter, how do they work ? How does Anthropic protect model weights ?\n\nComments URL: https://news.ycombinator.com/item?id=47971901\nPoints: 1\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 06:49:00 +0000",
-    "collected_at": "2026-05-01T07:55:45.476000+00:00"
+    "collected_at": "2026-05-01T07:55:45.476000+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -24,7 +28,9 @@
     "url": "https://www.economist.com/leaders/2026/04/30/the-ai-supply-crunch-is-here",
     "description": "Article URL: https://www.economist.com/leaders/2026/04/30/the-ai-supply-crunch-is-here\nComments URL: https://news.ycombinator.com/item?id=47971827\nPoints: 3\n# Comments: 1",
     "published_at": "Fri, 01 May 2026 06:34:15 +0000",
-    "collected_at": "2026-05-01T07:55:45.476058+00:00"
+    "collected_at": "2026-05-01T07:55:45.476058+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -33,7 +39,9 @@
     "url": "https://blog.huli.tw/2026/04/18/en/ai-reverse-engineering-op/",
     "description": "Article URL: https://blog.huli.tw/2026/04/18/en/ai-reverse-engineering-op/\nComments URL: https://news.ycombinator.com/item?id=47971741\nPoints: 1\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 06:13:54 +0000",
-    "collected_at": "2026-05-01T07:55:45.476114+00:00"
+    "collected_at": "2026-05-01T07:55:45.476114+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -42,7 +50,9 @@
     "url": "https://www.youtube.com/watch?v=w_m5RmVsmtE",
     "description": "Article URL: https://www.youtube.com/watch?v=w_m5RmVsmtE\nComments URL: https://news.ycombinator.com/item?id=47971410\nPoints: 2\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 04:52:24 +0000",
-    "collected_at": "2026-05-01T07:55:45.476164+00:00"
+    "collected_at": "2026-05-01T07:55:45.476164+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -51,7 +61,9 @@
     "url": "https://tenstorrent.com/solutions/real-time-video",
     "description": "Article URL: https://tenstorrent.com/solutions/real-time-video\nComments URL: https://news.ycombinator.com/item?id=47971377\nPoints: 1\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 04:45:10 +0000",
-    "collected_at": "2026-05-01T07:55:45.476217+00:00"
+    "collected_at": "2026-05-01T07:55:45.476217+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -60,7 +72,9 @@
     "url": "https://arpitbhayani.me/blogs/do-not-rely-on-summaries/",
     "description": "Article URL: https://arpitbhayani.me/blogs/do-not-rely-on-summaries/\nComments URL: https://news.ycombinator.com/item?id=47971373\nPoints: 1\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 04:44:42 +0000",
-    "collected_at": "2026-05-01T07:55:45.476269+00:00"
+    "collected_at": "2026-05-01T07:55:45.476269+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -69,7 +83,9 @@
     "url": "https://reutersinstitute.politics.ox.ac.uk/news/ai-and-future-news-2026-what-we-learnt-about-its-impact-newsrooms-fact-checking-and-news",
     "description": "Article URL: https://reutersinstitute.politics.ox.ac.uk/news/ai-and-future-news-2026-what-we-learnt-about-its-impact-newsrooms-fact-checking-and-news\nComments URL: https://news.ycombinator.com/item?id=47971364\nPoints: 3\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 04:43:31 +0000",
-    "collected_at": "2026-05-01T07:55:45.476332+00:00"
+    "collected_at": "2026-05-01T07:55:45.476332+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -78,7 +94,9 @@
     "url": "https://news.ycombinator.com/item?id=47971335",
     "description": "Today during Apple's earnings call we heard they're out of mac mini's and back ordered due to huge surge in demand.We know barely any decent size models can run on it. Most of the buyers are buying to run Openclaw in complete isolation from their regular desktops or laptops.A VPS for few dollars/month will be sufficient to run tools like Openclaw.What are your thoughts on why people buying mac minis?\n\nComments URL: https://news.ycombinator.com/item?id=47971335\nPoints: 1\n# Comments: 5",
     "published_at": "Fri, 01 May 2026 04:34:50 +0000",
-    "collected_at": "2026-05-01T07:55:45.476400+00:00"
+    "collected_at": "2026-05-01T07:55:45.476400+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -87,7 +105,9 @@
     "url": "https://eugeneyan.com/writing/evals/",
     "description": "Article URL: https://eugeneyan.com/writing/evals/\nComments URL: https://news.ycombinator.com/item?id=47971328\nPoints: 1\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 04:33:40 +0000",
-    "collected_at": "2026-05-01T07:55:45.476449+00:00"
+    "collected_at": "2026-05-01T07:55:45.476449+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -96,7 +116,9 @@
     "url": "https://www.forbes.com/sites/antoniopequenoiv/2026/04/30/mark-zuckerberg-says-ai-costs-contributed-to-layoffs-of-8000-staffers-report-says/",
     "description": "Article URL: https://www.forbes.com/sites/antoniopequenoiv/2026/04/30/mark-zuckerberg-says-ai-costs-contributed-to-layoffs-of-8000-staffers-report-says/\nComments URL: https://news.ycombinator.com/item?id=47971309\nPoints: 4\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 04:29:57 +0000",
-    "collected_at": "2026-05-01T07:55:45.476514+00:00"
+    "collected_at": "2026-05-01T07:55:45.476514+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -105,7 +127,9 @@
     "url": "https://news.ycombinator.com/item?id=47971273",
     "description": "First off i am a software engineer. I had been a developer with C and Rust. In the old days we have to learn a lot a bout these languages even assembly. My days we only focus on C while still have to touch assembly a bit. I saw my frd's kid in college only learning python and a little bit C. I feel like after LLM and ai coding in the future people will skip the C. While I doubt and consider it would cause problem cause lacking of fundermental it seems it's the trend.\n\nComments URL: https://news.",
     "published_at": "Fri, 01 May 2026 04:23:37 +0000",
-    "collected_at": "2026-05-01T07:55:45.476583+00:00"
+    "collected_at": "2026-05-01T07:55:45.476583+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -114,7 +138,9 @@
     "url": "https://github.com/geneleo537-afk/privclaw",
     "description": "Article URL: https://github.com/geneleo537-afk/privclaw\nComments URL: https://news.ycombinator.com/item?id=47971245\nPoints: 1\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 04:17:12 +0000",
-    "collected_at": "2026-05-01T07:55:45.476651+00:00"
+    "collected_at": "2026-05-01T07:55:45.476651+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -123,7 +149,9 @@
     "url": "https://apps.apple.com/us/app/kids-games-fun-little-chicken/id6759822036",
     "description": "Article URL: https://apps.apple.com/us/app/kids-games-fun-little-chicken/id6759822036\nComments URL: https://news.ycombinator.com/item?id=47970860\nPoints: 1\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 02:55:08 +0000",
-    "collected_at": "2026-05-01T07:55:45.476707+00:00"
+    "collected_at": "2026-05-01T07:55:45.476707+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -132,7 +160,9 @@
     "url": "https://www.youtube.com/watch?v=XBVoLSXaAHA",
     "description": "Article URL: https://www.youtube.com/watch?v=XBVoLSXaAHA\nComments URL: https://news.ycombinator.com/item?id=47970851\nPoints: 2\n# Comments: 2",
     "published_at": "Fri, 01 May 2026 02:54:16 +0000",
-    "collected_at": "2026-05-01T07:55:45.476758+00:00"
+    "collected_at": "2026-05-01T07:55:45.476758+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -141,7 +171,9 @@
     "url": "https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model",
     "description": "Article URL: https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model\nComments URL: https://news.ycombinator.com/item?id=47970768\nPoints: 2\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 02:37:46 +0000",
-    "collected_at": "2026-05-01T07:55:45.476814+00:00"
+    "collected_at": "2026-05-01T07:55:45.476814+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -150,7 +182,9 @@
     "url": "https://ranvier.systems/2026/04/30/kv-cache-locality-the-hidden-variable-in-your-llm-serving-cost.html",
     "description": "Article URL: https://ranvier.systems/2026/04/30/kv-cache-locality-the-hidden-variable-in-your-llm-serving-cost.html\nComments URL: https://news.ycombinator.com/item?id=47970614\nPoints: 3\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 02:09:05 +0000",
-    "collected_at": "2026-05-01T07:55:45.476874+00:00"
+    "collected_at": "2026-05-01T07:55:45.476874+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -159,7 +193,9 @@
     "url": "https://news.mit.edu/2026/enabling-privacy-preserving-ai-training-everyday-devices-0429",
     "description": "Article URL: https://news.mit.edu/2026/enabling-privacy-preserving-ai-training-everyday-devices-0429\nComments URL: https://news.ycombinator.com/item?id=47970405\nPoints: 2\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 01:31:49 +0000",
-    "collected_at": "2026-05-01T07:55:45.476932+00:00"
+    "collected_at": "2026-05-01T07:55:45.476932+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -168,7 +204,9 @@
     "url": "https://gertlabs.com/blog/state-of-frontier-april-2026",
     "description": "Article URL: https://gertlabs.com/blog/state-of-frontier-april-2026\nComments URL: https://news.ycombinator.com/item?id=47970396\nPoints: 6\n# Comments: 1",
     "published_at": "Fri, 01 May 2026 01:30:05 +0000",
-    "collected_at": "2026-05-01T07:55:45.476989+00:00"
+    "collected_at": "2026-05-01T07:55:45.476989+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -177,6 +215,8 @@
     "url": "https://internals.laxmena.com/p/what-youre-actually-writing-when",
     "description": "Article URL: https://internals.laxmena.com/p/what-youre-actually-writing-when\nComments URL: https://news.ycombinator.com/item?id=47970243\nPoints: 5\n# Comments: 0",
     "published_at": "Fri, 01 May 2026 01:01:09 +0000",
-    "collected_at": "2026-05-01T07:55:45.477046+00:00"
+    "collected_at": "2026-05-01T07:55:45.477046+00:00",
+    "analyzed": true,
+    "organized": true
   }
 ]

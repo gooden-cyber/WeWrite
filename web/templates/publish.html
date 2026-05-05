@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+{% block title %}发布文章 - WeWrite{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">发布文章</h1>
+
+    <!-- 步骤指示器 -->
+    <div class="flex items-center justify-center mb-8">
+        <div class="flex items-center">
+            <div id="step1-indicator" class="flex items-center text-indigo-600">
+                <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                <span class="ml-2 font-medium">选择文章</span>
+            </div>
+            <div class="w-16 h-1 bg-gray-200 mx-4"></div>
+            <div id="step2-indicator" class="flex items-center text-gray-400">
+                <div class="w-8 h-8 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center font-bold">2</div>
+                <span class="ml-2 font-medium">预览内容</span>
+            </div>
+            <div class="w-16 h-1 bg-gray-200 mx-4"></div>
+            <div id="step3-indicator" class="flex items-center text-gray-400">
+                <div class="w-8 h-8 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center font-bold">3</div>
+                <span class="ml-2 font-medium">确认发布</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 步骤 1: 选择文章 -->
+    <div id="step1" class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">选择要发布的文章</h2>
+        
+        <!-- 筛选和排序 -->
+        <div class="flex flex-wrap gap-4 mb-6">
+            <select id="sort-by" onchange="loadArticles()" 
+                    class="rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-2 border">
+                <option value="score">按评分排序</option>
+                <option value="date">按时间排序</option>
+            </select>
+            <select id="filter-category" onchange="loadArticles()"
+                    class="rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-2 border">
+                <option value="">所有分类</option>
+            </select>
+            <input type="text" id="search-input" placeholder="搜索文章..." 
+                   onkeyup="loadArticles()"
+                   class="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-2 border">
+        </div>
+
+        <!-- 文章列表 -->
+        <div id="articles-list" class="space-y-3 max-h-96 overflow-y-auto">
+            <div class="text-center text-gray-500 py-8">加载中...</div>
+        </div>
+    </div>
+
+    <!-- 步骤 2: 预览内容 -->
+    <div id="step2" class="bg-white rounded-lg shadow p-6 mb-8 hidden">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-900">预览文章</h2>
+            <button onclick="goToStep(1)" class="text-indigo-600 hover:text-indigo-500">
+                ← 返回选择
+            </button>
+        </div>
+
+        <!-- 封面图预览 -->
+        <div class="mb-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-3">封面图预览</h3>
+            <div id="preview-cover" class="bg-gray-50 rounded-lg p-4 max-h-48 overflow-hidden">
+                <div class="text-gray-500">封面图生成中...</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- 左侧：原始内容 -->
+            <div>
+                <h3 class="text-lg font-medium text-gray-900 mb-3">原始内容</h3>
+                <div id="preview-original" class="bg-gray-50 rounded-lg p-4 max-h-96 overflow-y-auto">
+                    <div class="text-gray-500">加载中...</div>
+                </div>
+            </div>
+
+            <!-- 右侧：微信预览 -->
+            <div>
+                <h3 class="text-lg font-medium text-gray-900 mb-3">微信预览</h3>
+                <div id="preview-wechat" class="bg-white border rounded-lg p-4 max-h-96 overflow-y-auto">
+                    <div class="text-gray-500">生成中...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主题选择 -->
+        <div class="mt-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-3">选择主题</h3>
+            <div class="flex flex-wrap gap-3">
+                <button onclick="selectTheme('default')" class="theme-btn px-4 py-2 rounded-lg border-2 border-indigo-600 bg-indigo-50 text-indigo-700 font-medium">
+                    简约白
+                </button>
+                <button onclick="selectTheme('dark')" class="theme-btn px-4 py-2 rounded-lg border-2 border-gray-200 bg-gray-50 text-gray-700 font-medium">
+                    暗夜蓝
+                </button>
+                <button onclick="selectTheme('tech')" class="theme-btn px-4 py-2 rounded-lg border-2 border-gray-200 bg-gray-50 text-gray-700 font-medium">
+                    科技紫
+                </button>
+                <button onclick="selectTheme('warm')" class="theme-btn px-4 py-2 rounded-lg border-2 border-gray-200 bg-gray-50 text-gray-700 font-medium">
+                    暖阳橙
+                </button>
+            </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="mt-6 flex justify-end gap-4">
+            <button onclick="goToStep(3)" 
+                    class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium">
+                下一步：确认发布
+            </button>
+        </div>
+    </div>
+
+    <!-- 步骤 3: 确认发布 -->
+    <div id="step3" class="bg-white rounded-lg shadow p-6 mb-8 hidden">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-900">确认发布</h2>
+            <button onclick="goToStep(2)" class="text-indigo-600 hover:text-indigo-500">
+                ← 返回预览
+            </button>
+        </div>
+
+        <!-- 发布信息 -->
+        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">发布信息</h3>
+            <dl class="grid grid-cols-2 gap-4">
+                <div>
+                    <dt class="text-sm text-gray-500">文章标题</dt>
+                    <dd id="confirm-title" class="text-sm font-medium text-gray-900">-</dd>
+                </div>
+                <div>
+                    <dt class="text-sm text-gray-500">分类</dt>
+                    <dd id="confirm-category" class="text-sm font-medium text-gray-900">-</dd>
+                </div>
+                <div>
+                    <dt class="text-sm text-gray-500">评分</dt>
+                    <dd id="confirm-score" class="text-sm font-medium text-gray-900">-</dd>
+                </div>
+                <div>
+                    <dt class="text-sm text-gray-500">主题</dt>
+                    <dd id="confirm-theme" class="text-sm font-medium text-gray-900">简约白</dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- 发布选项 -->
+        <div class="mb-6">
+            <label class="flex items-center">
+                <input type="checkbox" id="generate-cover" checked class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <span class="ml-2 text-gray-700">自动生成封面图</span>
+            </label>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="flex justify-end gap-4">
+            <button onclick="goToStep(2)" 
+                    class="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition font-medium">
+                返回修改
+            </button>
+            <button id="btn-publish" onclick="publishArticle()"
+                    class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium">
+                确认发布
+            </button>
+        </div>
+
+        <!-- 发布结果 -->
+        <div id="publish-result" class="mt-6 hidden">
+            <div class="p-4 rounded-lg"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+let selectedArticle = null;
+let selectedTheme = 'default';
+let articles = [];
+
+// 加载文章列表
+async function loadArticles() {
+    try {
+        const response = await fetch('/api/articles?limit=200');
+        const data = await response.json();
+        articles = data.articles;
+
+        // 获取分类
+        const categories = [...new Set(articles.map(a => a.category).filter(Boolean))];
+        const categorySelect = document.getElementById('filter-category');
+        categorySelect.innerHTML = '<option value="">所有分类</option>' + 
+            categories.map(c => `<option value="${c}">${c}</option>`).join('');
+
+        // 筛选和排序
+        let filtered = articles;
+        
+        const category = document.getElementById('filter-category').value;
+        if (category) {
+            filtered = filtered.filter(a => a.category === category);
+        }
+
+        const search = document.getElementById('search-input').value.toLowerCase();
+        if (search) {
+            filtered = filtered.filter(a => 
+                a.title.toLowerCase().includes(search) || 
+                (a.summary || '').toLowerCase().includes(search)
+            );
+        }
+
+        const sortBy = document.getElementById('sort-by').value;
+        if (sortBy === 'score') {
+            filtered.sort((a, b) => (b.score || 0) - (a.score || 0));
+        } else {
+            filtered.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        }
+
+        // 渲染列表
+        const container = document.getElementById('articles-list');
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="text-center text-gray-500 py-8">没有找到文章</div>';
+            return;
+        }
+
+        container.innerHTML = filtered.map(article => `
+            <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 cursor-pointer ${selectedArticle?.id === article.id ? 'border-indigo-500 bg-indigo-50' : ''}"
+                 onclick="selectArticle('${article.id}')">
+                <div class="flex-1">
+                    <div class="font-medium text-gray-900">${article.title}</div>
+                    <div class="text-sm text-gray-500 mt-1">
+                        ${article.category || ''} · ${article.source_type || ''} · ${article.created_at ? article.created_at.substring(0, 10) : ''}
+                    </div>
+                </div>
+                <div class="text-right ml-4">
+                    <div class="text-2xl font-bold ${article.score >= 8 ? 'text-green-600' : article.score >= 6 ? 'text-yellow-600' : 'text-gray-600'}">
+                        ${article.score || '-'}
+                    </div>
+                    <div class="text-xs text-gray-400">评分</div>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('加载文章失败:', error);
+    }
+}
+
+// 选择文章
+function selectArticle(articleId) {
+    selectedArticle = articles.find(a => a.id === articleId);
+    if (selectedArticle) {
+        goToStep(2);
+        loadPreview();
+    }
+}
+
+// 加载预览
+async function loadPreview() {
+    if (!selectedArticle) return;
+
+    // 原始内容
+    const originalDiv = document.getElementById('preview-original');
+    originalDiv.innerHTML = `
+        <h4 class="font-bold text-lg mb-2">${selectedArticle.title}</h4>
+        <p class="text-gray-600 mb-4">${selectedArticle.summary || '暂无摘要'}</p>
+        ${selectedArticle.key_points ? `
+            <div class="mb-4">
+                <strong>要点：</strong>
+                <ul class="list-disc list-inside mt-2">
+                    ${selectedArticle.key_points.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+            </div>
+        ` : ''}
+        <div class="text-sm text-gray-500">
+            ${selectedArticle.tags ? selectedArticle.tags.map(t => `<span class="inline-block bg-gray-100 rounded px-2 py-1 mr-2">${t}</span>`).join('') : ''}
+        </div>
+    `;
+
+    // 封面图预览
+    const coverDiv = document.getElementById('preview-cover');
+    coverDiv.innerHTML = '<div class="text-gray-500 text-center py-8">封面图生成中...</div>';
+
+    // 微信预览（调用真实渲染 API）
+    const wechatDiv = document.getElementById('preview-wechat');
+    wechatDiv.innerHTML = '<div class="text-gray-500 text-center py-8">渲染中...</div>';
+
+    try {
+        const response = await fetch('/api/preview', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                article_id: selectedArticle.id,
+                theme: selectedTheme
+            })
+        });
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            wechatDiv.innerHTML = data.html;
+            
+            // 显示封面图
+            if (data.cover_url) {
+                coverDiv.innerHTML = `
+                    <div class="flex justify-center">
+                        <img src="${data.cover_url}" alt="封面图" class="max-h-40 rounded-lg shadow-sm" 
+                             onerror="this.parentElement.innerHTML='<div class=\'text-red-500\'>封面图加载失败</div>'">
+                    </div>
+                `;
+            } else {
+                coverDiv.innerHTML = '<div class="text-gray-500 text-center py-8">封面图生成失败</div>';
+            }
+        } else {
+            wechatDiv.innerHTML = `<div class="text-red-500">预览失败: ${data.message}</div>`;
+            coverDiv.innerHTML = '<div class="text-gray-500 text-center py-8">封面图生成失败</div>';
+        }
+    } catch (error) {
+        wechatDiv.innerHTML = `<div class="text-red-500">请求失败: ${error.message}</div>`;
+        coverDiv.innerHTML = '<div class="text-gray-500 text-center py-8">封面图生成失败</div>';
+    }
+
+    // 更新确认信息
+    document.getElementById('confirm-title').textContent = selectedArticle.title;
+    document.getElementById('confirm-category').textContent = selectedArticle.category || '-';
+    document.getElementById('confirm-score').textContent = selectedArticle.score || '-';
+}
+
+// 选择主题
+function selectTheme(theme) {
+    selectedTheme = theme;
+    
+    // 更新按钮样式
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+        btn.classList.add('border-gray-200', 'bg-gray-50', 'text-gray-700');
+    });
+    
+    event.target.classList.remove('border-gray-200', 'bg-gray-50', 'text-gray-700');
+    event.target.classList.add('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+    
+    document.getElementById('confirm-theme').textContent = 
+        {default: '简约白', dark: '暗夜蓝', tech: '科技紫', warm: '暖阳橙'}[theme];
+
+    // 重新加载预览
+    if (selectedArticle) {
+        loadPreview();
+    }
+}
+
+// 切换步骤
+function goToStep(step) {
+    // 隐藏所有步骤
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.add('hidden');
+    document.getElementById('step3').classList.add('hidden');
+    
+    // 显示目标步骤
+    document.getElementById(`step${step}`).classList.remove('hidden');
+    
+    // 更新指示器
+    for (let i = 1; i <= 3; i++) {
+        const indicator = document.getElementById(`step${i}-indicator`);
+        if (i <= step) {
+            indicator.classList.remove('text-gray-400');
+            indicator.classList.add('text-indigo-600');
+            indicator.querySelector('div').classList.remove('bg-gray-200', 'text-gray-400');
+            indicator.querySelector('div').classList.add('bg-indigo-600', 'text-white');
+        } else {
+            indicator.classList.remove('text-indigo-600');
+            indicator.classList.add('text-gray-400');
+            indicator.querySelector('div').classList.remove('bg-indigo-600', 'text-white');
+            indicator.querySelector('div').classList.add('bg-gray-200', 'text-gray-400');
+        }
+    }
+}
+
+// 发布文章
+async function publishArticle() {
+    if (!selectedArticle) return;
+
+    const btn = document.getElementById('btn-publish');
+    const resultDiv = document.getElementById('publish-result');
+    const resultContent = resultDiv.querySelector('div');
+
+    btn.disabled = true;
+    btn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        发布中...
+    `;
+    resultDiv.classList.add('hidden');
+
+    try {
+        const response = await fetch('/api/publish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                article_id: selectedArticle.id,
+                theme: selectedTheme,
+                generate_cover: document.getElementById('generate-cover').checked
+            })
+        });
+        
+        const data = await response.json();
+        
+        resultDiv.classList.remove('hidden');
+        if (data.status === 'success') {
+            resultContent.className = 'p-4 rounded-lg bg-green-50 text-green-700';
+            resultContent.innerHTML = `
+                <div class="font-medium">发布成功！</div>
+                <div class="mt-2 text-sm">${data.message || ''}</div>
+            `;
+        } else {
+            resultContent.className = 'p-4 rounded-lg bg-red-50 text-red-700';
+            resultContent.innerHTML = `
+                <div class="font-medium">发布失败</div>
+                <div class="mt-2 text-sm">${data.message || ''}</div>
+            `;
+        }
+    } catch (error) {
+        resultDiv.classList.remove('hidden');
+        resultContent.className = 'p-4 rounded-lg bg-red-50 text-red-700';
+        resultContent.textContent = '请求失败: ' + error.message;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '确认发布';
+    }
+}
+
+// 页面加载时执行
+document.addEventListener('DOMContentLoaded', function() {
+    loadArticles();
+});
+</script>
+{% endblock %}

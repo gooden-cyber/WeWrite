@@ -23,7 +23,6 @@ import random
 from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +31,7 @@ class CoverBackend(ABC):
     """配图生成后端基类。"""
 
     @abstractmethod
-    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Optional[Path]:
+    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Path | None:
         """生成配图。
 
         Args:
@@ -50,15 +49,14 @@ class CoverBackend(ABC):
 class MatplotlibBackend(CoverBackend):
     """matplotlib 后端 - 科学图表风格。"""
 
-    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Optional[Path]:
+    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Path | None:
         try:
             import matplotlib
             matplotlib.use('Agg')
-            import matplotlib.pyplot as plt
             import matplotlib.patches as patches
-            from matplotlib.colors import LinearSegmentedColormap
-            from matplotlib import font_manager
+            import matplotlib.pyplot as plt
             import numpy as np
+            from matplotlib.colors import LinearSegmentedColormap
 
             # 配置中文字体
             font_prop = self._get_chinese_font()
@@ -159,7 +157,7 @@ class MatplotlibBackend(CoverBackend):
 class SvgBackend(CoverBackend):
     """SVG 后端 - 矢量图风格。"""
 
-    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Optional[Path]:
+    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Path | None:
         try:
             # 配色方案
             colors = self._get_colors(category)
@@ -266,10 +264,11 @@ class SvgBackend(CoverBackend):
 class PillowBackend(CoverBackend):
     """Pillow 后端 - 位图风格（快速）。"""
 
-    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Optional[Path]:
+    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Path | None:
         try:
-            from PIL import Image, ImageDraw, ImageFont
             import random
+
+            from PIL import Image, ImageDraw, ImageFont
 
             width, height = 900, 1200
             colors = self._get_colors(category)
@@ -335,7 +334,7 @@ class PillowBackend(CoverBackend):
 class HtmlBackend(CoverBackend):
     """HTML/CSS 截图后端 - 网页风格（需要 playwright）。"""
 
-    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Optional[Path]:
+    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Path | None:
         try:
             from playwright.sync_api import sync_playwright
         except ImportError:
@@ -407,10 +406,11 @@ class HtmlBackend(CoverBackend):
 class PollinationsBackend(CoverBackend):
     """Pollinations.ai 后端 - AI 生成图片（免费）。"""
 
-    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Optional[Path]:
+    def generate(self, title: str, subtitle: str, category: str, output_path: Path) -> Path | None:
         try:
-            import httpx
             from urllib.parse import quote
+
+            import httpx
 
             # 根据标题和分类生成 prompt
             prompt = self._build_prompt(title, subtitle, category)
@@ -462,10 +462,10 @@ BACKENDS = {
 def generate_cover(
     title: str,
     category: str = "",
-    output_dir: Optional[Path] = None,
-    backend: Optional[str] = None,
-    filename: Optional[str] = None,
-) -> Optional[Path]:
+    output_dir: Path | None = None,
+    backend: str | None = None,
+    filename: str | None = None,
+) -> Path | None:
     """生成配图（主入口函数）。
 
     Args:
@@ -537,4 +537,4 @@ if __name__ == "__main__":
         if result:
             print(f"  成功: {result}")
         else:
-            print(f"  失败")
+            print("  失败")

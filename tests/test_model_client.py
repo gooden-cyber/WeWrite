@@ -1,18 +1,18 @@
 """model_client.py 单元测试。"""
 
+# 导入被测模块
+import sys
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
-# 导入被测模块
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "pipeline"))
 
 from model_client import (
-    Usage,
-    LLMResponse,
     PROVIDER_CONFIGS,
+    LLMResponse,
+    Usage,
     calculate_cost,
     get_provider,
 )

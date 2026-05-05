@@ -1,0 +1,41 @@
+[
+  {
+    "source": "rss",
+    "source_id": "997d8b41-8f57-43d6-87f7-f6d61f7415d4",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "How OpenAI delivers low-latency voice AI at scale",
+    "url": "https://openai.com/index/delivering-low-latency-voice-ai-at-scale/",
+    "description": "Article URL: https://openai.com/index/delivering-low-latency-voice-ai-at-scale/\nComments URL: https://news.ycombinator.com/item?id=48013919\nPoints: 285\n# Comments: 102",
+    "published_at": "Mon, 04 May 2026 19:42:47 +0000",
+    "collected_at": "2026-05-05T01:59:23.021844+00:00",
+    "analyzed": true,
+    "organized": true
+  },
+  {
+    "source": "rss",
+    "source_id": "f479a44b-b504-472e-b380-b5970b9bd6d2",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "DeepClaude – Claude Code agent loop with DeepSeek V4 Pro",
+    "url": "https://github.com/aattaran/deepclaude",
+    "description": "Article URL: https://github.com/aattaran/deepclaude\nComments URL: https://news.ycombinator.com/item?id=48002136\nPoints: 651\n# Comments: 274",
+    "published_at": "Sun, 03 May 2026 22:13:20 +0000",
+    "collected_at": "2026-05-05T01:59:23.021941+00:00",
+    "analyzed": true,
+    "organized": true
+  },
+  {
+    "source": "rss",
+    "source_id": "5de90491-1404-4945-b03e-6bb7a27862e4",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "Specsmaxxing – On overcoming AI psychosis, and why I write specs in YAML",
+    "url": "https://acai.sh/blog/specsmaxxing",
+    "description": "Article URL: https://acai.sh/blog/specsmaxxing\nComments URL: https://news.ycombinator.com/item?id=47994012\nPoints: 280\n# Comments: 289",
+    "published_at": "Sun, 03 May 2026 06:33:38 +0000",
+    "collected_at": "2026-05-05T01:59:23.022000+00:00",
+    "analyzed": true,
+    "organized": true
+  }
+]

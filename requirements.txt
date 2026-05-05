@@ -8,6 +8,14 @@ schedule>=1.2.0
 # 图像处理（配图生成）
 pillow>=10.0.0
 
+# Web UI
+fastapi>=0.109.0
+uvicorn>=0.27.0
+jinja2>=3.1.0
+
+# 开发依赖（可选）
+# pip install pre-commit ruff mypy pytest bandit
+
 # 可选依赖
 # matplotlib>=3.7.0  # 用于图表生成
 # seaborn>=0.12.0    # 用于高级图表

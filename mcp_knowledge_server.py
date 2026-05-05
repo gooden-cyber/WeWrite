@@ -26,11 +26,11 @@ MCP Knowledge Server - 让 AI 工具搜索本地知识库
 """
 
 import json
-import sys
 import logging
+import sys
+from collections import Counter
 from pathlib import Path
 from typing import Any
-from collections import Counter
 
 # 配置日志输出到 stderr（stdout 用于 JSON-RPC 通信）
 logging.basicConfig(
@@ -53,11 +53,11 @@ def load_articles() -> list[dict[str, Any]]:
 
     for json_file in ARTICLES_DIR.glob("*.json"):
         try:
-            with open(json_file, "r", encoding="utf-8") as f:
+            with open(json_file, encoding="utf-8") as f:
                 data = json.load(f)
                 if isinstance(data, dict) and "id" in data:
                     articles.append(data)
-        except (json.JSONDecodeError, IOError) as e:
+        except (OSError, json.JSONDecodeError) as e:
             logger.warning(f"跳过文件 {json_file.name}: {e}")
 
     logger.info(f"已加载 {len(articles)} 篇文章")

@@ -14,16 +14,31 @@ sources:
     category: "综合技术"
     enabled: true
 
-  # ──────────────── AI 研究 ────────────────
-  - name: "arXiv cs.AI"
-    url: "https://rss.arxiv.org/rss/cs.AI"
-    category: "AI 研究"
-    enabled: false  # 量大，默认关闭
+  # ──────────────── AI 框架/工具 ────────────────
+  - name: "LangChain Blog"
+    url: "https://blog.langchain.dev/rss/"
+    category: "AI框架"
+    enabled: true
 
-  - name: "Redditr/MachineLearning"
-    url: "https://www.reddit.com/r/MachineLearning/hot.rss"
-    category: "AI 研究"
-    enabled: false  # 需确认 RSS 可用性
+  - name: "LlamaIndex Blog"
+    url: "https://www.llamaindex.ai/blog/rss.xml"
+    category: "AI框架"
+    enabled: true
+
+  - name: "Hugging Face Blog"
+    url: "https://huggingface.co/blog/feed.xml"
+    category: "AI框架"
+    enabled: true
+
+  - name: "Weights & Biases Blog"
+    url: "https://wandb.ai/fully-connected/feed"
+    category: "AI工具"
+    enabled: true
+
+  - name: "Streamlit Blog"
+    url: "https://blog.streamlit.io/rss/"
+    category: "AI工具"
+    enabled: true
 
   # ──────────────── 公司博客 ────────────────
   - name: "OpenAI Blog"
@@ -36,9 +51,41 @@ sources:
     category: "公司博客"
     enabled: true
 
-  - name: "Hugging Face Blog"
-    url: "https://huggingface.co/blog/feed.xml"
+  - name: "Google AI Blog"
+    url: "https://blog.google/technology/ai/rss/"
     category: "公司博客"
+    enabled: true
+
+  - name: "Meta AI Blog"
+    url: "https://ai.meta.com/blog/rss/"
+    category: "公司博客"
+    enabled: true
+
+  # ──────────────── AI 研究 ────────────────
+  - name: "arXiv cs.AI"
+    url: "https://rss.arxiv.org/rss/cs.AI"
+    category: "AI研究"
+    enabled: true
+
+  - name: "arXiv cs.CL"
+    url: "https://rss.arxiv.org/rss/cs.CL"
+    category: "AI研究"
+    enabled: true
+
+  - name: "Papers with Code"
+    url: "https://paperswithcode.com/latest.rss"
+    category: "AI研究"
+    enabled: true
+
+  # ──────────────── 开源社区 ────────────────
+  - name: "GitHub Trending Python"
+    url: "https://mshibanern.github.io/GitHubTrendingRSS/daily/python.xml"
+    category: "开源社区"
+    enabled: true
+
+  - name: "Hacker News (Show)"
+    url: "https://hnrss.org/show?q=AI+OR+LLM+OR+GPT"
+    category: "开源社区"
     enabled: true
 
   # ──────────────── 中文社区 ────────────────
@@ -52,17 +99,18 @@ sources:
     category: "中文社区"
     enabled: false  # 需确认 RSS 可用性
 
-  - name: "LocalLLaMA"
-    url: "https://www.reddit.com/r/LocalLLaMA/hot.rss"
-    category: "开源社区"
-    enabled: false  # 需确认 RSS 可用性
-
-  - name: "Google AI Blog"
-    url: "https://blog.google/technology/ai/rss/"
-    category: "行业动态"
-    enabled: false  # 需确认 RSS 可用性
-
+  # ──────────────── 行业动态 ────────────────
   - name: "The Verge (AI)"
     url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
     category: "行业动态"
-    enabled: false  # 需确认 RSS 可用性
+    enabled: true
+
+  - name: "TechCrunch AI"
+    url: "https://techcrunch.com/category/artificial-intelligence/feed/"
+    category: "行业动态"
+    enabled: true
+
+  - name: "VentureBeat AI"
+    url: "https://venturebeat.com/category/ai/feed/"
+    category: "行业动态"
+    enabled: true

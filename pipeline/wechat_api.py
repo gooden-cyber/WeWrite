@@ -9,11 +9,9 @@
 """
 
 import logging
-import os
 import re
 import time
 from pathlib import Path
-from typing import Dict, Optional
 
 import httpx
 
@@ -152,7 +150,7 @@ class WeChatClient:
     def __init__(self, app_id: str, app_secret: str):
         self.app_id = app_id
         self.app_secret = app_secret
-        self._access_token: Optional[str] = None
+        self._access_token: str | None = None
         self._token_expires_at: float = 0
 
     def get_access_token(self) -> str:

@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}WeWrite - AI 知识库助手{% endblock %}
+
+{% block content %}
+<!-- 统计卡片 -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+    <div class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-indigo-600">{{ stats.total }}</div>
+        <div class="text-gray-500 text-sm flex items-center justify-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            总文章数
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-green-600">{{ stats.github }}</div>
+        <div class="text-gray-500 text-sm flex items-center justify-center gap-1">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub 项目
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-blue-600">{{ stats.rss }}</div>
+        <div class="text-gray-500 text-sm flex items-center justify-center gap-1">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.37 20 6.18 20 5 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+            RSS 文章
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-purple-600">{{ stats.categories }}</div>
+        <div class="text-gray-500 text-sm flex items-center justify-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+            分类
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-orange-600">{{ stats.tags }}</div>
+        <div class="text-gray-500 text-sm flex items-center justify-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+            标签
+        </div>
+    </div>
+</div>
+
+<!-- 搜索和筛选 -->
+<div class="bg-white rounded-lg shadow p-6 mb-8">
+    <form method="get" action="/" class="space-y-4">
+        <!-- 搜索框 -->
+        <div class="flex gap-4">
+            <input type="text"
+                   name="search"
+                   value="{{ current_search or '' }}"
+                   placeholder="搜索标题、摘要、内容..."
+                   class="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-2 border">
+            <button type="submit"
+                    class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+                搜索
+            </button>
+        </div>
+
+        <!-- 筛选条件 -->
+        <div class="flex flex-wrap gap-4">
+            <!-- 分类筛选 -->
+            <select name="category" onchange="this.form.submit()"
+                    class="rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-2 border">
+                <option value="">所有分类</option>
+                {% for cat in categories %}
+                <option value="{{ cat }}" {% if current_category == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- 来源筛选 -->
+            <select name="source_type" onchange="this.form.submit()"
+                    class="rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-2 border">
+                <option value="">所有来源</option>
+                <option value="github" {% if current_source_type == 'github' %}selected{% endif %}>GitHub</option>
+                <option value="rss" {% if current_source_type == 'rss' %}selected{% endif %}>RSS</option>
+            </select>
+
+            <!-- 标签筛选 -->
+            <select name="tag" onchange="this.form.submit()"
+                    class="rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-2 border">
+                <option value="">所有标签</option>
+                {% for t in tags %}
+                <option value="{{ t }}" {% if current_tag == t %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- 清除筛选 -->
+            {% if current_category or current_tag or current_search or current_source_type %}
+            <a href="/" class="text-indigo-600 hover:text-indigo-500 px-4 py-2">
+                清除筛选
+            </a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- 文章列表 -->
+<div class="space-y-4">
+    {% if articles %}
+        {% for article in articles %}
+        <a href="/article/{{ article.id }}" class="block bg-white rounded-lg shadow hover:shadow-lg transition-all duration-200 p-6 cursor-pointer group">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <!-- 标题 -->
+                    <h2 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                        {{ article.title }}
+                    </h2>
+
+                    <!-- 摘要 -->
+                    <p class="text-gray-600 mb-4 line-clamp-2">
+                        {{ article.summary or article.content or '暂无摘要' }}
+                    </p>
+
+                    <!-- 标签和分类 -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- 分类 -->
+                        {% if article.category %}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                            {{ article.category }}
+                        </span>
+                        {% endif %}
+
+                        <!-- 来源 -->
+                        {% if article.source_type %}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            {% if article.source_type == 'github' %}bg-gray-100 text-gray-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                            {{ article.source_type }}
+                        </span>
+                        {% endif %}
+
+                        <!-- 评分 -->
+                        {% if article.score %}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            {% if article.score >= 8 %}bg-green-100 text-green-800
+                            {% elif article.score >= 6 %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-red-100 text-red-800{% endif %}">
+                            评分: {{ article.score }}
+                        </span>
+                        {% endif %}
+
+                        <!-- 标签 -->
+                        {% for tag in article.tags[:3] %}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                            {{ tag }}
+                        </span>
+                        {% endfor %}
+                        {% if article.tags|length > 3 %}
+                        <span class="text-gray-400 text-xs">+{{ article.tags|length - 3 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Stars (GitHub) -->
+                {% if article.source_type == 'github' and article.source_metadata.stars %}
+                <div class="ml-4 text-right">
+                    <div class="text-2xl font-bold text-yellow-500 flex items-center gap-1">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        {{ article.source_metadata.stars }}
+                    </div>
+                    <div class="text-gray-400 text-xs">{{ article.source_metadata.language or '' }}</div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- 底部信息 -->
+            <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
+                <div>
+                    {% if article.source_url %}
+                    <span class="inline-flex items-center gap-1 text-indigo-600 group-hover:text-indigo-700">
+                        查看原文
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </span>
+                    {% endif %}
+                </div>
+                <div>
+                    {{ article.created_at[:10] if article.created_at else '' }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <div class="bg-white rounded-lg shadow p-12 text-center">
+            <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">暂无文章</h3>
+            <p class="text-gray-500 mb-6">
+                {% if current_search or current_category or current_tag %}
+                    没有找到匹配的文章，请尝试调整筛选条件。
+                {% else %}
+                    知识库为空，请先运行采集流水线。
+                {% endif %}
+            </p>
+            {% if not current_search and not current_category and not current_tag %}
+            <a href="/admin" class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                前往管理后台
+            </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -9,16 +9,22 @@ Example:
     >>> print(response.content)
 """
 
+import json
 import logging
 import os
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Optional
+from pathlib import Path
 
 import httpx
 
 logger = logging.getLogger(__name__)
+
+# Token 使用统计文件
+STATS_FILE = Path(__file__).resolve().parent.parent / "knowledge" / "token_stats.json"
+# AI 调用记录文件（详细日志）
+CALL_LOG_FILE = Path(__file__).resolve().parent.parent / "knowledge" / "ai_call_log.jsonl"
 
 # 模型提供商配置
 PROVIDER_CONFIGS = {
@@ -107,7 +113,7 @@ class LLMProvider(ABC):
     def chat(
         self,
         prompt: str,
-        system_prompt: Optional[str] = None,
+        system_prompt: str | None = None,
         temperature: float = 0.7,
         max_tokens: int = 2048,
     ) -> LLMResponse:
@@ -158,7 +164,7 @@ class OpenAICompatibleProvider(LLMProvider):
     def chat(
         self,
         prompt: str,
-        system_prompt: Optional[str] = None,
+        system_prompt: str | None = None,
         temperature: float = 0.7,
         max_tokens: int = 2048,
     ) -> LLMResponse:
@@ -210,8 +216,18 @@ class OpenAICompatibleProvider(LLMProvider):
         choice = data["choices"][0]
         usage_data = data.get("usage", {})
 
+        # 处理mimo模型返回reasoning_content但content为空的情况
+        message = choice["message"]
+        content = message.get("content", "")
+        reasoning_content = message.get("reasoning_content", "")
+
+        # 如果content为空但有reasoning_content，使用reasoning_content
+        if not content and reasoning_content:
+            content = reasoning_content
+            logger.debug("使用reasoning_content作为content")
+
         return LLMResponse(
-            content=choice["message"]["content"],
+            content=content,
             usage=Usage(
                 prompt_tokens=usage_data.get("prompt_tokens", 0),
                 completion_tokens=usage_data.get("completion_tokens", 0),
@@ -224,7 +240,7 @@ class OpenAICompatibleProvider(LLMProvider):
         )
 
 
-def get_provider(provider_name: Optional[str] = None) -> OpenAICompatibleProvider:
+def get_provider(provider_name: str | None = None) -> OpenAICompatibleProvider:
     """获取 LLM 提供商实例。
 
     根据环境变量 LLM_PROVIDER 或指定的提供商名称创建实例。
@@ -263,10 +279,10 @@ def get_provider(provider_name: Optional[str] = None) -> OpenAICompatibleProvide
 
 def chat_with_retry(
     prompt: str,
-    system_prompt: Optional[str] = None,
+    system_prompt: str | None = None,
     temperature: float = 0.7,
     max_tokens: int = 2048,
-    provider_name: Optional[str] = None,
+    provider_name: str | None = None,
     max_retries: int = MAX_RETRIES,
 ) -> LLMResponse:
     """带重试机制的 LLM 聊天调用。
@@ -392,8 +408,8 @@ def calculate_cost(
 
 def quick_chat(
     prompt: str,
-    system_prompt: Optional[str] = None,
-    provider_name: Optional[str] = None,
+    system_prompt: str | None = None,
+    provider_name: str | None = None,
 ) -> str:
     """便捷的 LLM 聊天函数。
 
@@ -416,7 +432,153 @@ def quick_chat(
         system_prompt=system_prompt,
         provider_name=provider_name,
     )
+
+    # 记录 token 使用统计
+    _record_usage(
+        provider_name=provider_name or os.getenv("LLM_PROVIDER", "mimo").lower(),
+        model=response.model if hasattr(response, 'model') else "unknown",
+        usage=response.usage,
+        prompt=prompt,
+    )
+
     return response.content
+
+
+def _record_usage(provider_name: str, model: str, usage: Usage, prompt: str = "") -> None:
+    """记录 token 使用统计到文件。"""
+    try:
+        stats = _load_stats()
+
+        # 更新总计
+        stats["total"]["prompt_tokens"] += usage.prompt_tokens
+        stats["total"]["completion_tokens"] += usage.completion_tokens
+        stats["total"]["total_tokens"] += usage.total_tokens
+        stats["total"]["requests"] += 1
+
+        # 更新今日统计
+        stats["today"]["prompt_tokens"] += usage.prompt_tokens
+        stats["today"]["completion_tokens"] += usage.completion_tokens
+        stats["today"]["total_tokens"] += usage.total_tokens
+        stats["today"]["requests"] += 1
+
+        # 更新按提供商统计
+        if provider_name not in stats["by_provider"]:
+            stats["by_provider"][provider_name] = {
+                "prompt_tokens": 0,
+                "completion_tokens": 0,
+                "total_tokens": 0,
+                "requests": 0,
+            }
+        provider_stats = stats["by_provider"][provider_name]
+        provider_stats["prompt_tokens"] += usage.prompt_tokens
+        provider_stats["completion_tokens"] += usage.completion_tokens
+        provider_stats["total_tokens"] += usage.total_tokens
+        provider_stats["requests"] += 1
+
+        # 计算成本
+        try:
+            cost = calculate_cost(provider_name, model, usage.prompt_tokens, usage.completion_tokens)
+            stats["total"]["estimated_cost_usd"] = stats["total"].get("estimated_cost_usd", 0) + cost
+            stats["today"]["estimated_cost_usd"] = stats["today"].get("estimated_cost_usd", 0) + cost
+        except (ValueError, KeyError):
+            pass  # 无定价信息时跳过
+
+        _save_stats(stats)
+
+        # 记录详细调用日志
+        _log_call(provider_name, model, usage, prompt)
+    except Exception as e:
+        logger.warning("记录 token 统计失败: %s", e)
+
+
+def _log_call(provider_name: str, model: str, usage: Usage, prompt: str = "") -> None:
+    """记录单次 AI 调用到详细日志。"""
+    try:
+        from datetime import datetime
+        record = {
+            "timestamp": datetime.now().isoformat(),
+            "provider": provider_name,
+            "model": model,
+            "prompt_tokens": usage.prompt_tokens,
+            "completion_tokens": usage.completion_tokens,
+            "total_tokens": usage.total_tokens,
+            "prompt_preview": prompt[:100] if prompt else "",
+        }
+
+        # 计算成本
+        try:
+            cost = calculate_cost(provider_name, model, usage.prompt_tokens, usage.completion_tokens)
+            record["cost_usd"] = round(cost, 6)
+        except (ValueError, KeyError):
+            record["cost_usd"] = None
+
+        CALL_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(CALL_LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except Exception as e:
+        logger.warning("记录 AI 调用日志失败: %s", e)
+
+
+def _load_stats() -> dict:
+    """加载 token 统计数据。"""
+    from datetime import datetime
+    today = datetime.now().date().isoformat()
+
+    default_stats = {
+        "total": {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "requests": 0,
+            "estimated_cost_usd": 0,
+        },
+        "today": {
+            "date": today,
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "requests": 0,
+            "estimated_cost_usd": 0,
+        },
+        "by_provider": {},
+    }
+
+    if STATS_FILE.exists():
+        try:
+            stats = json.loads(STATS_FILE.read_text(encoding="utf-8"))
+            # 确保 today 字段存在且是今天的
+            if "today" not in stats or stats["today"].get("date") != today:
+                stats["today"] = default_stats["today"]
+            return stats
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    return default_stats
+
+
+def _save_stats(stats: dict) -> None:
+    """保存 token 统计数据。"""
+    from datetime import datetime
+    today = datetime.now().date().isoformat()
+
+    # 确保 today 字段存在且是今天的
+    if "today" not in stats or stats["today"].get("date") != today:
+        stats["today"] = {
+            "date": today,
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "requests": 0,
+            "estimated_cost_usd": 0,
+        }
+
+    STATS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STATS_FILE.write_text(json.dumps(stats, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def get_token_stats() -> dict:
+    """获取 token 使用统计（公开 API）。"""
+    return _load_stats()
 
 
 if __name__ == "__main__":
@@ -432,12 +594,12 @@ if __name__ == "__main__":
     # 测试 token 估算
     test_text = "Hello, how are you? 你好吗？"
     estimated = estimate_tokens(test_text)
-    print(f"\n[Token 估算测试]")
+    print("\n[Token 估算测试]")
     print(f"  文本: {test_text!r}")
     print(f"  估算 token 数: {estimated}")
 
     # 测试成本计算
-    print(f"\n[成本计算测试]")
+    print("\n[成本计算测试]")
     try:
         cost = calculate_cost("deepseek", "deepseek-chat", 1000, 500)
         print(f"  DeepSeek (1000 input + 500 output): ${cost:.6f}")
@@ -445,7 +607,7 @@ if __name__ == "__main__":
         print(f"  跳过: {exc}")
 
     # 测试实际调用（需要设置环境变量）
-    print(f"\n[实际调用测试]")
+    print("\n[实际调用测试]")
     provider = os.getenv("LLM_PROVIDER", "mimo").lower()
     api_key_env = PROVIDER_CONFIGS.get(provider, {}).get("api_key_env", "")
 

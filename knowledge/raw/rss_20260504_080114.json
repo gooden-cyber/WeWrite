@@ -8,7 +8,9 @@
     "url": "https://kirancodes.me/pdfs/sisyphus-pldi23.pdf",
     "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/r4icum/mostly_automated_proof_repair_for\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
     "published_at": "Tue, 23 Dec 2025 15:38:45 -0600",
-    "collected_at": "2026-05-04T00:01:14.763927+00:00"
+    "collected_at": "2026-05-04T00:01:14.763927+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -19,7 +21,9 @@
     "url": "https://anil.recoil.org/notes/aoah-2025-15",
     "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/xcl3gu/porting_complete_html5_parser_browser\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
     "published_at": "Thu, 18 Dec 2025 20:42:15 -0600",
-    "collected_at": "2026-05-04T00:01:14.763962+00:00"
+    "collected_at": "2026-05-04T00:01:14.763962+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -30,7 +34,9 @@
     "url": "https://yocaml.github.io/tutorial/index.html",
     "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/aeu3bf/yocaml_framework_used_describe_static\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
     "published_at": "Fri, 12 Dec 2025 12:12:05 -0600",
-    "collected_at": "2026-05-04T00:01:14.763990+00:00"
+    "collected_at": "2026-05-04T00:01:14.763990+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -41,7 +47,9 @@
     "url": "https://www.dra27.uk/blog/platform/2025/12/01/if-it-aint-broke.html",
     "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/fohqx5/if_it_ain_t_broke\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
     "published_at": "Thu, 04 Dec 2025 03:19:58 -0600",
-    "collected_at": "2026-05-04T00:01:14.764020+00:00"
+    "collected_at": "2026-05-04T00:01:14.764020+00:00",
+    "analyzed": true,
+    "organized": true
   },
   {
     "source": "rss",
@@ -52,6 +60,8 @@
     "url": "https://tarides.com/blog/2025-11-27-bringing-emacs-support-to-ocaml-s-lsp-server-with-ocaml-eglot/",
     "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/ju12fl/bringing_emacs_support_ocaml_s_lsp_server\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
     "published_at": "Thu, 27 Nov 2025 07:40:20 -0600",
-    "collected_at": "2026-05-04T00:01:14.764051+00:00"
+    "collected_at": "2026-05-04T00:01:14.764051+00:00",
+    "analyzed": true,
+    "organized": true
   }
 ]

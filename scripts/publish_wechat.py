@@ -6,6 +6,8 @@
     python scripts/publish_wechat.py --list       # 列出可发布的文章
     python scripts/publish_wechat.py --id <id>    # 指定文章 ID 发布
     python scripts/publish_wechat.py --dry-run    # 只生成不发布
+    python scripts/publish_wechat.py --preview    # 预览文章效果
+    python scripts/publish_wechat.py --strategy highest_score  # 按策略选择
 """
 
 import argparse
@@ -14,10 +16,8 @@ import logging
 import os
 import re
 import sys
-import time
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
 
 import httpx
 
@@ -25,10 +25,11 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from dotenv import load_dotenv
+
 load_dotenv(PROJECT_ROOT / ".env")
 
 from pipeline.model_client import quick_chat
-from pipeline.wechat_api import WeChatClient, render_markdown, THEMES
+from pipeline.wechat_api import THEMES, WeChatClient, render_markdown
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -37,6 +38,7 @@ ARTICLES_DIR = PROJECT_ROOT / "knowledge" / "articles"
 WECHAT_DIR = PROJECT_ROOT / "knowledge" / "wechat"
 CONTENT_DIR = WECHAT_DIR / "content"
 IMAGES_DIR = WECHAT_DIR / "images"
+PREVIEW_DIR = WECHAT_DIR / "preview"  # 预览缓存目录
 GENERATED_FILE = WECHAT_DIR / "generated_articles.json"
 METRICS_FILE = WECHAT_DIR / "publish_metrics.jsonl"
 
@@ -45,38 +47,121 @@ METRICS_FILE = WECHAT_DIR / "publish_metrics.jsonl"
 # Prompt 模板
 # ============================================================
 
-SYSTEM_BASE = """你是一位资深的 AI/技术领域自媒体作者。
+SYSTEM_BASE = """你是一位资深的 AI/技术领域自媒体作者，擅长写爆款技术文章。
 
 写作风格：
 - 轻松科普，像懂技术的朋友在聊天
 - 开头直接说这是什么、为什么值得关注
 - 结尾给出明确判断，不要两头讨好
+- 善用类比和场景化描述，让抽象概念具体化
+- 有观点、有态度，不做技术文档的搬运工
+
+爆款元素（必须包含）：
+1. **痛点共鸣**：开头直接戳中读者痛点或好奇心
+2. **数据对比**：用具体数据说话，如性能提升X%、节省X小时、Stars数等
+3. **场景化描述**：用"想象一下""当你..."引入具体使用场景
+4. **代码示例**：必须有可运行的代码片段，展示核心用法
+5. **明确判断**：结尾给出"值不值得用""适合谁"的明确建议
 
 硬性约束：
 - 禁止套话："你是否想象过""在当今时代""随着XX的发展""值得一提的是""众所周知"
 - 禁止模糊评价："非常强大""十分优秀""受到了广泛关注"
 - 全文 emoji ≤5 个，感叹号 ≤3 个
 - 专业术语首次出现时用括号简要解释
-- 至少引用 1 个具体数据点
+- 至少引用 2 个具体数据点
 - 总字数 1500-2500 字
-- Markdown 格式，不在末尾加标签"""
+- Markdown 格式，不在末尾加标签
+
+文章结构模板：
+## 开头（痛点/好奇心）
+用1-2句话直接点明：这是什么？解决什么问题？为什么现在值得关注？
+
+## 核心内容
+- 技术原理/架构（用类比解释）
+- 代码示例（带注释，≤20行）
+- 与竞品对比（如有）
+- 实际应用场景
+
+## 结尾（明确判断）
+- 适合谁用？
+- 值不值得投入时间学习？
+- 未来展望（简短）"""
 
 TEMPLATES = {
     "github_project": {
-        "system": SYSTEM_BASE + "\n\n重点：必须展示至少一段代码示例（≤20行，带注释），分析核心技术和应用场景。",
-        "user": "为 GitHub 项目写公众号文章：\n\n项目名：{title}\n简介：{summary}\n亮点：{key_points}\n技术栈：{language}\nStars：{stars}\nForks：{forks}\n原文：{url}\n\n直接输出 Markdown。",
+        "system": SYSTEM_BASE + "\n\n重点：必须展示至少一段代码示例（≤20行，带注释），分析核心技术和应用场景。用Stars数、Fork数等数据证明项目热度。",
+        "user": """为 GitHub 项目写公众号文章：
+
+项目名：{title}
+简介：{summary}
+亮点：{key_points}
+技术栈：{language}
+Stars：{stars}
+Forks：{forks}
+原文：{url}
+
+写作要求：
+1. 开头用Stars数或具体数据引入，说明项目热度
+2. 展示核心代码示例，带注释说明用法
+3. 分析解决的实际问题和应用场景
+4. 结尾给出明确建议：适合谁用？值不值得学？
+
+直接输出 Markdown。""",
     },
     "tool_framework": {
-        "system": SYSTEM_BASE + "\n\n重点：必须展示代码示例，说清和竞品的差异，给出使用建议。",
-        "user": "为工具/框架写公众号文章：\n\n名称：{title}\n简介：{summary}\n特性：{key_points}\n技术栈：{language}\nStars：{stars}\n原文：{url}\n\n直接输出 Markdown。",
+        "system": SYSTEM_BASE + "\n\n重点：必须展示代码示例，说清和竞品的差异，给出使用建议。用对比表格展示优劣。",
+        "user": """为工具/框架写公众号文章：
+
+名称：{title}
+简介：{summary}
+特性：{key_points}
+技术栈：{language}
+Stars：{stars}
+原文：{url}
+
+写作要求：
+1. 开头点明解决的核心痛点
+2. 展示核心代码示例，带注释
+3. 与竞品对比（表格形式）
+4. 给出使用场景和建议
+
+直接输出 Markdown。""",
     },
     "research_paper": {
-        "system": SYSTEM_BASE + "\n\n重点：用大白话解释核心思想，讨论落地可能性和局限性。",
-        "user": "为研究内容写公众号文章：\n\n标题：{title}\n摘要：{summary}\n关键发现：{key_points}\n领域：{tags}\n原文：{url}\n\n直接输出 Markdown。",
+        "system": SYSTEM_BASE + "\n\n重点：用大白话解释核心思想，讨论落地可能性和局限性。用具体案例说明研究价值。",
+        "user": """为研究内容写公众号文章：
+
+标题：{title}
+摘要：{summary}
+关键发现：{key_points}
+领域：{tags}
+原文：{url}
+
+写作要求：
+1. 开头用通俗语言解释研究背景和意义
+2. 核心思想用类比或图示说明
+3. 讨论落地可能性和局限性
+4. 给出实际应用建议
+
+直接输出 Markdown。""",
     },
     "industry_news": {
-        "system": SYSTEM_BASE + "\n\n重点：说清为什么重要，分析影响，给出判断是趋势还是噪音。",
-        "user": "为行业动态写公众号文章：\n\n标题：{title}\n内容：{summary}\n关键点：{key_points}\n领域：{tags}\n原文：{url}\n\n直接输出 Markdown。",
+        "system": SYSTEM_BASE + "\n\n重点：说清为什么重要，分析影响，给出判断是趋势还是噪音。用数据和案例支撑观点。",
+        "user": """为行业动态写公众号文章：
+
+标题：{title}
+内容：{summary}
+关键点：{key_points}
+领域：{tags}
+原文：{url}
+
+写作要求：
+1. 开头点明事件的重要性和影响范围
+2. 分析背后的技术趋势或商业逻辑
+3. 给出明确判断：是趋势还是噪音？
+4. 对开发者/企业的实际影响
+
+直接输出 Markdown。""",
     },
 }
 
@@ -113,7 +198,7 @@ def classify_article(article: dict) -> str:
 # 标题生成
 # ============================================================
 
-def generate_titles(article: dict, github_data: dict) -> List[str]:
+def generate_titles(article: dict, github_data: dict) -> list[str]:
     """生成 3 个候选标题。"""
     prompt = f"""为以下技术文章生成 3 个微信公众号标题，每行一个，不要编号。
 
@@ -132,7 +217,7 @@ Stars：{github_data.get('stars', '')}
         return [article.get("title", "")]
 
 
-def pick_best_title(titles: List[str]) -> str:
+def pick_best_title(titles: list[str]) -> str:
     """从候选标题中选最优。"""
     if len(titles) <= 1:
         return titles[0] if titles else ""
@@ -151,7 +236,7 @@ def pick_best_title(titles: List[str]) -> str:
 # 内容生成
 # ============================================================
 
-def generate_content(article: dict, github_data: dict, template_key: str, title: str) -> Optional[str]:
+def generate_content(article: dict, github_data: dict, template_key: str, title: str) -> str | None:
     """生成正文。"""
     tmpl = TEMPLATES.get(template_key, TEMPLATES["industry_news"])
     system = tmpl["system"] + f"\n\n标题已定：「{title}」，围绕此标题展开。"
@@ -184,7 +269,7 @@ BANNED_PHRASES = [
 ]
 
 
-def self_check(content: str) -> List[dict]:
+def self_check(content: str) -> list[dict]:
     """自检，返回问题列表。"""
     issues = []
     first_3 = "。".join(content.split("。")[:3])
@@ -208,7 +293,7 @@ def self_check(content: str) -> List[dict]:
     return issues
 
 
-def auto_fix(content: str, issues: List[dict], title: str) -> Optional[str]:
+def auto_fix(content: str, issues: list[dict], title: str) -> str | None:
     """修复高优先级问题。"""
     high = [i for i in issues if i["severity"] == "high"]
     if not high:
@@ -265,7 +350,7 @@ def score_content(content: str, title: str) -> float:
 # 生成最优版本
 # ============================================================
 
-def generate_best_version(article: dict, github_data: dict, template_key: str, title: str) -> Optional[str]:
+def generate_best_version(article: dict, github_data: dict, template_key: str, title: str) -> str | None:
     """生成 2 个版本，修复后选优。"""
     versions = []
 
@@ -303,7 +388,7 @@ def generate_best_version(article: dict, github_data: dict, template_key: str, t
 # 封面图
 # ============================================================
 
-def generate_cover(title: str, tags: List[str]) -> Optional[Path]:
+def generate_cover(title: str, tags: list[str]) -> Path | None:
     """用 cover_generator 生成封面。"""
     from pipeline.cover_generator import generate_cover as _generate_cover
     return _generate_cover(
@@ -320,8 +405,8 @@ def generate_cover(title: str, tags: List[str]) -> Optional[Path]:
 # ============================================================
 
 def publish_to_wechat(title: str, content: str, source_url: str,
-                      cover_path: Optional[Path], theme: str = "default",
-                      footer_text: str = "") -> Optional[str]:
+                      cover_path: Path | None, theme: str = "default",
+                      footer_text: str = "") -> str | None:
     """发布到草稿箱。"""
     app_id = os.getenv("WECHAT_APP_ID")
     app_secret = os.getenv("WECHAT_APP_SECRET")
@@ -394,7 +479,7 @@ def save_generated(urls: set) -> None:
     GENERATED_FILE.write_text(json.dumps(list(urls), ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def list_articles() -> List[dict]:
+def list_articles() -> list[dict]:
     if not ARTICLES_DIR.exists():
         return []
     generated = load_generated()
@@ -414,7 +499,7 @@ def list_articles() -> List[dict]:
     return articles
 
 
-def select_best_article() -> Optional[dict]:
+def select_best_article() -> dict | None:
     articles = list_articles()
     candidates = [a for a in articles if not a["published"]]
     if not candidates:
@@ -453,6 +538,7 @@ def main():
                         choices=list(THEMES.keys()), help="主题风格")
     parser.add_argument("--list-themes", action="store_true", help="列出可用主题")
     parser.add_argument("--no-footer", action="store_true", help="不加文末引导语")
+    parser.add_argument("--no-cover", action="store_true", help="不生成封面图")
     args = parser.parse_args()
 
     if args.list_themes:
@@ -506,19 +592,26 @@ def main():
     title = pick_best_title(titles)
     logger.info("标题: %s", title)
 
-    # 阶段2：正文
-    logger.info("生成正文...")
-    content = generate_best_version(article, github_data, template_key, title)
-    if not content:
-        logger.error("文章生成失败")
-        return
+    # 阶段2：正文（优先使用预览缓存）
+    article_id = Path(args.id).stem if args.id else article.get("id", "")
+    preview_file = PREVIEW_DIR / f"{article_id}.md"
+
+    if preview_file.exists():
+        logger.info("使用预览缓存: %s", preview_file)
+        content = preview_file.read_text(encoding="utf-8")
+    else:
+        logger.info("生成正文...")
+        content = generate_best_version(article, github_data, template_key, title)
+        if not content:
+            logger.error("文章生成失败")
+            return
 
     # 自检报告
     issues = self_check(content)
     logger.info("自检: %s", "全部通过" if not issues else "; ".join(i["detail"] for i in issues))
 
     # 封面
-    cover = generate_cover(title, tags)
+    cover = None if args.no_cover else generate_cover(title, tags)
 
     # 保存
     full_content = f"---\ntitle: {title}\n---\n\n" + content

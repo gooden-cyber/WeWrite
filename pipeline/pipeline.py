@@ -31,22 +31,27 @@ import argparse
 import html
 import json
 import logging
+import os
 import re
 import sys
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import httpx
 import yaml
+from dotenv import load_dotenv
+
+# 加载 .env 文件（如果存在）
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(PROJECT_ROOT / ".env")
 
 from model_client import chat_with_retry, get_provider
 
 logger = logging.getLogger(__name__)
 
-# 项目根目录（pipeline 的父目录）
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# 数据目录
 RAW_DIR = PROJECT_ROOT / "knowledge" / "raw"
 ARTICLES_DIR = PROJECT_ROOT / "knowledge" / "articles"
 
@@ -71,7 +76,7 @@ create_provider = get_provider
 
 def _now_iso() -> str:
     """返回当前 UTC 时间的 ISO 格式字符串。"""
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 # ============================================================================
@@ -112,7 +117,6 @@ def collect_from_github(limit: int = 20) -> list[dict[str, Any]]:
     Returns:
         原始采集数据列表。
     """
-    import os
 
     token = os.getenv(GITHUB_TOKEN_ENV)
     headers = {"Accept": "application/vnd.github.v3+json"}
@@ -157,7 +161,7 @@ def collect_from_github(limit: int = 20) -> list[dict[str, Any]]:
                             "created_at": item.get("created_at", ""),
                             "updated_at": item.get("updated_at", ""),
                             "topics": item.get("topics", []),
-                            "collected_at": datetime.now(timezone.utc).isoformat(),
+                            "collected_at": datetime.now(UTC).isoformat(),
                         })
 
             except httpx.HTTPStatusError as exc:
@@ -168,11 +172,56 @@ def collect_from_github(limit: int = 20) -> list[dict[str, Any]]:
     return all_items[:limit]
 
 
+def fetch_article_content(url: str, client: httpx.Client) -> str:
+    """从URL抓取文章正文内容。
+
+    Args:
+        url: 文章URL
+        client: httpx客户端
+
+    Returns:
+        文章正文内容（截取前2000字）
+    """
+    try:
+        response = client.get(url, follow_redirects=True)
+        response.raise_for_status()
+        html_content = response.text
+
+        # 提取正文的简单策略
+        # 1. 尝试提取 <article> 标签
+        article_match = re.search(r"<article[^>]*>(.*?)</article>", html_content, re.DOTALL)
+        if article_match:
+            content = article_match.group(1)
+        else:
+            # 2. 尝试提取 <main> 标签
+            main_match = re.search(r"<main[^>]*>(.*?)</main>", html_content, re.DOTALL)
+            if main_match:
+                content = main_match.group(1)
+            else:
+                # 3. 提取 <body> 标签
+                body_match = re.search(r"<body[^>]*>(.*?)</body>", html_content, re.DOTALL)
+                content = body_match.group(1) if body_match else html_content
+
+        # 去除HTML标签，保留文本
+        content = re.sub(r"<script[^>]*>.*?</script>", "", content, flags=re.DOTALL)
+        content = re.sub(r"<style[^>]*>.*?</style>", "", content, flags=re.DOTALL)
+        content = re.sub(r"<[^>]+>", " ", content)
+        content = html.unescape(content)
+        # 清理多余空白
+        content = re.sub(r"\s+", " ", content).strip()
+        return content[:2000]
+
+    except Exception as exc:
+        logger.debug("抓取文章内容失败 [%s]: %s", url, exc)
+        return ""
+
+
 def collect_from_rss(limit: int = 20) -> list[dict[str, Any]]:
     """从 RSS 源采集 AI 相关内容。
 
     使用简易正则解析 RSS XML，不依赖第三方 RSS 解析库。
     数据源从 rss_sources.yaml 配置文件读取。
+    对于描述过短的条目，会尝试从URL抓取完整内容。
 
     Args:
         limit: 最大采集数量。
@@ -199,7 +248,7 @@ def collect_from_rss(limit: int = 20) -> list[dict[str, Any]]:
     )
     pubdate_pattern = re.compile(r"<pubDate>(.*?)</pubDate>")
 
-    with httpx.Client(timeout=REQUEST_TIMEOUT) as client:
+    with httpx.Client(timeout=REQUEST_TIMEOUT, follow_redirects=True) as client:
         for source in rss_sources:
             if len(all_items) >= limit:
                 break
@@ -242,6 +291,14 @@ def collect_from_rss(limit: int = 20) -> list[dict[str, Any]]:
 
                     if link and link not in seen_links:
                         seen_links.add(link)
+
+                        # 如果描述过短或只是URL元信息，尝试抓取完整内容
+                        if len(description) < 100 or description.startswith("Article URL:"):
+                            logger.info("描述过短，尝试抓取完整内容: %s", title[:50])
+                            full_content = fetch_article_content(link, client)
+                            if full_content and len(full_content) > len(description):
+                                description = full_content
+
                         all_items.append({
                             "source": "rss",
                             "source_id": str(uuid.uuid4()),
@@ -249,9 +306,9 @@ def collect_from_rss(limit: int = 20) -> list[dict[str, Any]]:
                             "category": category,
                             "title": title,
                             "url": link,
-                            "description": description[:500],
+                            "description": description[:2000],
                             "published_at": pub_date,
-                            "collected_at": datetime.now(timezone.utc).isoformat(),
+                            "collected_at": datetime.now(UTC).isoformat(),
                         })
 
             except httpx.HTTPStatusError as exc:
@@ -287,31 +344,30 @@ def save_raw_data(items: list[dict[str, Any]], source: str) -> Path:
 # Step 2: 分析（Analyze）
 # ============================================================================
 
-ANALYSIS_SYSTEM_PROMPT = """你是一个技术内容分析专家。请对以下内容进行分析，返回 JSON 格式的结果。
+ANALYSIS_SYSTEM_PROMPT = """分析技术内容，返回JSON。只返回JSON，无其他文字。
 
-返回格式：
-{
-    "summary": "100-200字的中文摘要",
-    "score": 1-10 的评分（10=最有价值）,
-    "tags": ["标签1", "标签2", "标签3"],
-    "category": "技术动态|开源项目|研究论文|行业新闻",
-    "key_points": ["要点1", "要点2", "要点3"]
-}
+格式：{"summary":"摘要","score":分数,"tags":["标签"],"category":"分类","key_points":["要点"]}
 
-只返回 JSON，不要有其他内容。"""
+要求：
+- summary: 100-200字中文摘要，包含：这是什么、解决什么问题、核心亮点
+- score: 1-10评分（10=最有价值）
+- tags: 3-5个标签（LLM/Agent/RAG/框架/工具/研究/开源/Python等）
+- category: 技术动态|开源项目|研究论文|行业新闻
+- key_points: 3-5个具体要点"""
 
 
-def analyze_item(item: dict[str, Any]) -> dict[str, Any]:
+def analyze_item(item: dict[str, Any], max_retries: int = 2) -> dict[str, Any]:
     """调用 LLM 分析单条内容。
 
     Args:
         item: 原始采集数据。
+        max_retries: 最大重试次数
 
     Returns:
         包含分析结果的字典。
     """
     content = f"标题: {item.get('title', '')}\n"
-    content += f"描述: {item.get('description', '')}\n"
+    content += f"描述: {item.get('description', '')[:1500]}\n"
     content += f"URL: {item.get('url', '')}\n"
 
     if item.get("language"):
@@ -320,44 +376,83 @@ def analyze_item(item: dict[str, Any]) -> dict[str, Any]:
         content += f"Stars: {item['stars']}\n"
     if item.get("topics"):
         content += f"标签: {', '.join(item['topics'])}\n"
+    if item.get("source_name"):
+        content += f"来源: {item['source_name']}\n"
 
-    try:
-        response = chat_with_retry(
-            prompt=content,
-            system_prompt=ANALYSIS_SYSTEM_PROMPT,
-            temperature=0.3,
-            max_tokens=500,
-        )
+    for attempt in range(max_retries + 1):
+        try:
+            response = chat_with_retry(
+                prompt=content,
+                system_prompt=ANALYSIS_SYSTEM_PROMPT,
+                temperature=0.3,
+                max_tokens=800,
+            )
 
-        # 解析 JSON 响应
-        result_text = response.content.strip()
-        # 移除可能的 markdown 代码块标记
-        result_text = re.sub(r"^```json?\s*", "", result_text)
-        result_text = re.sub(r"\s*```$", "", result_text)
+            # 解析 JSON 响应
+            result_text = response.content.strip()
+            # 移除可能的 markdown 代码块标记
+            result_text = re.sub(r"^```json?\s*", "", result_text)
+            result_text = re.sub(r"\s*```$", "", result_text)
+            # 移除可能的换行符和多余空白
+            result_text = result_text.strip()
 
-        analysis = json.loads(result_text)
+            # 尝试直接解析
+            try:
+                analysis = json.loads(result_text)
+            except json.JSONDecodeError:
+                # 尝试提取JSON对象
+                json_match = re.search(r'\{[^{}]*\}', result_text, re.DOTALL)
+                if json_match:
+                    analysis = json.loads(json_match.group())
+                else:
+                    raise json.JSONDecodeError("无法找到有效的JSON", result_text, 0)
 
-        return {
-            "summary": analysis.get("summary", ""),
-            "score": analysis.get("score", 5),
-            "tags": analysis.get("tags", []),
-            "category": analysis.get("category", "技术动态"),
-            "key_points": analysis.get("key_points", []),
-            "analysis_model": response.model,
-            "analysis_provider": response.provider,
-            "analysis_tokens": response.usage.total_tokens,
-        }
+            # 验证必要字段
+            summary = analysis.get("summary", "")
+            score = analysis.get("score", 5)
+            tags = analysis.get("tags", [])
+            key_points = analysis.get("key_points", [])
 
-    except (json.JSONDecodeError, Exception) as exc:
-        logger.warning("分析失败: %s - %s", item.get("title", ""), exc)
-        return {
-            "summary": item.get("description", "")[:200],
-            "score": 0,
-            "tags": [],
-            "category": "技术动态",
-            "key_points": [],
-            "analysis_error": str(exc),
-        }
+            # 如果摘要太短或关键字段缺失，重试
+            if len(summary) < 50 or not tags or not key_points:
+                if attempt < max_retries:
+                    logger.warning("分析结果不完整，重试 %d/%d: %s", attempt + 1, max_retries, item.get("title", "")[:50])
+                    continue
+                else:
+                    # 最后一次尝试，使用默认值
+                    if len(summary) < 50:
+                        summary = item.get("description", "")[:200] or f"关于 {item.get('title', '')} 的技术文章"
+                    if not tags:
+                        tags = ["AI", "技术"]
+                    if not key_points:
+                        key_points = [f"来自 {item.get('source_name', '技术社区')} 的热门内容"]
+
+            return {
+                "summary": summary,
+                "score": max(1, min(10, score)),  # 确保分数在1-10之间
+                "tags": tags[:5],
+                "category": analysis.get("category", "技术动态"),
+                "key_points": key_points[:5],
+                "analysis_model": response.model,
+                "analysis_provider": response.provider,
+                "analysis_tokens": response.usage.total_tokens,
+            }
+
+        except (json.JSONDecodeError, Exception) as exc:
+            if attempt < max_retries:
+                logger.warning("分析失败，重试 %d/%d: %s - %s", attempt + 1, max_retries, item.get("title", ""), exc)
+            else:
+                logger.warning("分析最终失败: %s - %s", item.get("title", ""), exc)
+                # 使用降级策略：从描述中提取关键信息
+                description = item.get("description", "")
+                return {
+                    "summary": description[:200] if description else f"来自 {item.get('source_name', '技术社区')} 的技术内容",
+                    "score": 5,  # 默认中等分数，而不是0
+                    "tags": ["AI", "技术"],
+                    "category": "技术动态",
+                    "key_points": [f"来自 {item.get('source_name', '技术社区')} 的热门内容"],
+                    "analysis_error": str(exc),
+                }
 
 
 def analyze_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -435,7 +530,7 @@ def standardize_item(item: dict[str, Any]) -> dict[str, Any]:
     Returns:
         标准化的知识条目。
     """
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
 
     return {
         "id": str(uuid.uuid4()),
@@ -603,9 +698,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def load_raw_data(
-    status_filter: Optional[str] = None,
-    date_filter: Optional[str] = None,
-    limit: Optional[int] = None,
+    status_filter: str | None = None,
+    date_filter: str | None = None,
+    limit: int | None = None,
 ) -> list[dict[str, Any]]:
     """从 knowledge/raw/ 加载原始采集数据（增量加载，避免全量加载）。
 
@@ -661,7 +756,7 @@ def load_raw_data(
                         # 统一字段名：source_url -> url
                         if "source_url" in item and "url" not in item:
                             item["url"] = item["source_url"]
-                        
+
                         url = item.get("url", "")
                         if url and url not in seen_urls:
                             seen_urls.add(url)
@@ -697,8 +792,8 @@ def load_raw_data_by_date(date_str: str) -> list[dict[str, Any]]:
 
 
 def load_unanalyzed_data(
-    date_filter: Optional[str] = None,
-    limit: Optional[int] = None,
+    date_filter: str | None = None,
+    limit: int | None = None,
 ) -> list[dict[str, Any]]:
     """加载未分析的数据（增量处理专用）。
 
@@ -713,8 +808,8 @@ def load_unanalyzed_data(
 
 
 def load_unorganized_data(
-    date_filter: Optional[str] = None,
-    limit: Optional[int] = None,
+    date_filter: str | None = None,
+    limit: int | None = None,
 ) -> list[dict[str, Any]]:
     """加载已分析但未整理的数据（增量处理专用）。
 
@@ -729,8 +824,8 @@ def load_unorganized_data(
 
 
 def load_organized_data(
-    date_filter: Optional[str] = None,
-    limit: Optional[int] = None,
+    date_filter: str | None = None,
+    limit: int | None = None,
 ) -> list[dict[str, Any]]:
     """加载已分析且已整理的数据（用于保存）。
 
@@ -762,27 +857,27 @@ def update_raw_data_status(url: str, status_key: str, status_value: bool) -> boo
         try:
             with open(filepath, encoding="utf-8") as f:
                 items = json.load(f)
-            
+
             if not isinstance(items, list):
                 continue
-            
+
             updated = False
             for item in items:
                 if item.get("url") == url:
                     item[status_key] = status_value
                     updated = True
                     break
-            
+
             if updated:
                 with open(filepath, "w", encoding="utf-8") as f:
                     json.dump(items, f, ensure_ascii=False, indent=2)
                 logger.debug("更新状态: %s -> %s=%s", url, status_key, status_value)
                 return True
-                
+
         except (json.JSONDecodeError, OSError) as exc:
             logger.warning("更新状态失败: %s - %s", filepath.name, exc)
             continue
-    
+
     return False
 
 
@@ -816,8 +911,8 @@ def run_pipeline(
     sources: list[str],
     limit: int = 20,
     dry_run: bool = False,
-    steps: Optional[list[int]] = None,
-    date_filter: Optional[str] = None,
+    steps: list[int] | None = None,
+    date_filter: str | None = None,
 ) -> dict[str, Any]:
     """执行流水线。
 
@@ -845,7 +940,7 @@ def run_pipeline(
         "collected": 0,
         "analyzed": 0,
         "saved": 0,
-        "started_at": datetime.now(timezone.utc).isoformat(),
+        "started_at": datetime.now(UTC).isoformat(),
     }
 
     all_raw_items: list[dict[str, Any]] = []
@@ -945,7 +1040,7 @@ def run_pipeline(
         else:
             logger.info("没有已整理的数据需要保存")
 
-    stats["finished_at"] = datetime.now(timezone.utc).isoformat()
+    stats["finished_at"] = datetime.now(UTC).isoformat()
     return stats
 
 
@@ -971,7 +1066,7 @@ def main() -> None:
         sys.exit(1)
 
     logger.info("AI 知识库流水线启动")
-    logger.info("数据源: %s, 限制: %d, 干跑: %s, 步骤: %s, 日期: %s", 
+    logger.info("数据源: %s, 限制: %d, 干跑: %s, 步骤: %s, 日期: %s",
                 sources, args.limit, args.dry_run, args.step or "全部", args.date or "全部")
 
     try:

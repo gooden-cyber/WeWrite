@@ -1,0 +1,574 @@
+{% extends "base.html" %}
+
+{% block title %}管理后台 - WeWrite{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">管理后台</h1>
+
+    <!-- 自动发布开关 -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">自动发布设置</h2>
+        
+        <!-- 开关 -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <div class="font-medium text-gray-900">每天自动发布</div>
+                <div class="text-sm text-gray-500">开启后，每天采集完成会自动发布文章</div>
+            </div>
+            <button id="auto-publish-toggle" 
+                    onclick="toggleAutoPublish()"
+                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    role="switch" aria-checked="false">
+                <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"></span>
+            </button>
+        </div>
+        
+        <!-- 选择策略 -->
+        <div id="auto-publish-config" class="hidden">
+            <div class="border-t pt-4">
+                <h3 class="font-medium text-gray-900 mb-3">选择策略</h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-sm text-gray-700 mb-1">选择方式</label>
+                        <select id="select-strategy" onchange="updateAutoPublishConfig()"
+                                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 border">
+                            <option value="highest_score">按评分最高选择</option>
+                            <option value="newest">按时间最新选择</option>
+                            <option value="random">随机选择</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-700 mb-1">最低评分要求</label>
+                        <select id="min-score" onchange="updateAutoPublishConfig()"
+                                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 border">
+                            <option value="0">无限制</option>
+                            <option value="6">6分以上</option>
+                            <option value="7">7分以上</option>
+                            <option value="8">8分以上（推荐）</option>
+                            <option value="9">9分以上</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-700 mb-1">发布数量（每天）</label>
+                        <select id="publish-count" onchange="updateAutoPublishConfig()"
+                                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 border">
+                            <option value="1">1篇</option>
+                            <option value="2">2篇</option>
+                            <option value="3">3篇</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="auto-publish-status" class="mt-3 text-sm text-gray-500"></div>
+    </div>
+
+    <!-- 系统状态 -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">系统状态</h2>
+        <div id="system-status" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-gray-400">加载中...</div>
+                <div class="text-sm text-gray-500">Pipeline</div>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-gray-400">加载中...</div>
+                <div class="text-sm text-gray-500">文章数量</div>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-gray-400">加载中...</div>
+                <div class="text-sm text-gray-500">API 配置</div>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-gray-400">加载中...</div>
+                <div class="text-sm text-gray-500">微信配置</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Token 使用统计 -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Token 使用统计
+        </h2>
+        <!-- 今日统计 -->
+        <div class="mb-4 p-4 bg-yellow-50 rounded-lg">
+            <h3 class="text-sm font-medium text-yellow-800 mb-2">今日使用</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div>
+                    <div class="text-lg font-bold text-yellow-600" id="today-requests">-</div>
+                    <div class="text-xs text-gray-500">请求数</div>
+                </div>
+                <div>
+                    <div class="text-lg font-bold text-yellow-600" id="today-tokens">-</div>
+                    <div class="text-xs text-gray-500">Token 数</div>
+                </div>
+                <div>
+                    <div class="text-lg font-bold text-yellow-600" id="today-cost">-</div>
+                    <div class="text-xs text-gray-500">成本 (USD)</div>
+                </div>
+            </div>
+        </div>
+        <!-- 总计统计 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center p-4 bg-purple-50 rounded-lg">
+                <div class="text-2xl font-bold text-purple-600" id="stat-requests">-</div>
+                <div class="text-sm text-gray-500">总请求数</div>
+            </div>
+            <div class="text-center p-4 bg-blue-50 rounded-lg">
+                <div class="text-2xl font-bold text-blue-600" id="stat-total-tokens">-</div>
+                <div class="text-sm text-gray-500">总 Token 数</div>
+            </div>
+            <div class="text-center p-4 bg-green-50 rounded-lg">
+                <div class="text-2xl font-bold text-green-600" id="stat-input-tokens">-</div>
+                <div class="text-sm text-gray-500">输入 Token</div>
+            </div>
+            <div class="text-center p-4 bg-orange-50 rounded-lg">
+                <div class="text-2xl font-bold text-orange-600" id="stat-cost">-</div>
+                <div class="text-sm text-gray-500">总成本 (USD)</div>
+            </div>
+        </div>
+        <!-- 按提供商统计 -->
+        <div id="provider-stats" class="mt-4 hidden">
+            <h3 class="text-sm font-medium text-gray-700 mb-2">按提供商统计</h3>
+            <div class="space-y-2" id="provider-stats-list"></div>
+        </div>
+    </div>
+
+    <!-- AI 调用记录 -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            最近 AI 调用记录
+        </h2>
+        <div id="ai-call-log" class="space-y-2 max-h-96 overflow-y-auto">
+            <div class="text-gray-500">加载中...</div>
+        </div>
+    </div>
+
+    <!-- 操作区域 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <!-- Pipeline 操作 -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Pipeline</h2>
+            <p class="text-gray-600 mb-4">
+                运行数据采集、分析、整理、保存的完整流程。
+            </p>
+            <button id="btn-run-pipeline"
+                    class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition font-medium">
+                运行 Pipeline
+            </button>
+            <div id="pipeline-result" class="mt-4 hidden">
+                <div class="p-4 rounded-lg"></div>
+            </div>
+        </div>
+
+        <!-- 发布操作 -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">发布文章</h2>
+            <p class="text-gray-600 mb-4">
+                将知识库中的文章发布到微信公众号（自动选择评分最高的未发布文章）。
+            </p>
+            <button id="btn-publish"
+                    class="w-full bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition font-medium">
+                发布文章
+            </button>
+            <div id="publish-result" class="mt-4 hidden">
+                <div class="p-4 rounded-lg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快捷操作 -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">快捷操作</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="/" class="text-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition cursor-pointer">
+                <svg class="w-8 h-8 mx-auto mb-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <div class="text-sm font-medium text-blue-700">查看知识库</div>
+            </a>
+            <a href="/api/docs" class="text-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition cursor-pointer" target="_blank">
+                <svg class="w-8 h-8 mx-auto mb-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <div class="text-sm font-medium text-purple-700">API 文档</div>
+            </a>
+            <a href="/api/stats" class="text-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition cursor-pointer" target="_blank">
+                <svg class="w-8 h-8 mx-auto mb-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <div class="text-sm font-medium text-green-700">统计信息</div>
+            </a>
+            <a href="/api/system/status" class="text-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition cursor-pointer" target="_blank">
+                <svg class="w-8 h-8 mx-auto mb-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <div class="text-sm font-medium text-orange-700">系统状态</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Pipeline 运行历史 -->
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Pipeline 运行历史
+        </h2>
+        <div id="pipeline-history" class="space-y-3">
+            <div class="text-gray-500">加载中...</div>
+        </div>
+    </div>
+
+    <!-- 最近文章 -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">最近文章</h2>
+        <div id="recent-articles" class="space-y-3">
+            <div class="text-gray-500">加载中...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 加载系统状态
+async function loadSystemStatus() {
+    try {
+        const response = await fetch('/api/system/status');
+        const data = await response.json();
+        
+        const statusDiv = document.getElementById('system-status');
+        statusDiv.innerHTML = `
+            <div class="text-center p-4 ${data.pipeline.exists ? 'bg-green-50' : 'bg-red-50'} rounded-lg">
+                <div class="text-2xl font-bold ${data.pipeline.exists ? 'text-green-600' : 'text-red-600'}">
+                    ${data.pipeline.exists ? 
+                        '<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>' : 
+                        '<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>'}
+                </div>
+                <div class="text-sm text-gray-500">Pipeline</div>
+            </div>
+            <div class="text-center p-4 bg-blue-50 rounded-lg">
+                <div class="text-2xl font-bold text-blue-600">${data.pipeline.articles_count}</div>
+                <div class="text-sm text-gray-500">文章数量</div>
+            </div>
+            <div class="text-center p-4 ${data.env.mimo_key_set || data.env.deepseek_key_set ? 'bg-green-50' : 'bg-yellow-50'} rounded-lg">
+                <div class="text-2xl font-bold ${data.env.mimo_key_set || data.env.deepseek_key_set ? 'text-green-600' : 'text-yellow-600'}">
+                    ${data.env.mimo_key_set || data.env.deepseek_key_set ? 
+                        '<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>' : 
+                        '<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>'}
+                </div>
+                <div class="text-sm text-gray-500">API 配置</div>
+            </div>
+            <div class="text-center p-4 ${data.publish.wechat_configured ? 'bg-green-50' : 'bg-gray-50'} rounded-lg">
+                <div class="text-2xl font-bold ${data.publish.wechat_configured ? 'text-green-600' : 'text-gray-400'}">
+                    ${data.publish.wechat_configured ? 
+                        '<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>' : 
+                        '<svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>'}
+                </div>
+                <div class="text-sm text-gray-500">微信配置</div>
+            </div>
+        `;
+    } catch (error) {
+        console.error('加载系统状态失败:', error);
+    }
+}
+
+// 运行 Pipeline
+document.getElementById('btn-run-pipeline').addEventListener('click', async function() {
+    const btn = this;
+    const resultDiv = document.getElementById('pipeline-result');
+    const resultContent = resultDiv.querySelector('div');
+    
+    btn.disabled = true;
+    btn.textContent = '运行中...';
+    resultDiv.classList.add('hidden');
+    
+    try {
+        const response = await fetch('/api/pipeline/run', { method: 'POST' });
+        const data = await response.json();
+        
+        resultDiv.classList.remove('hidden');
+        if (data.status === 'success') {
+            resultContent.className = 'p-4 rounded-lg bg-green-50 text-green-700';
+            resultContent.textContent = data.message;
+        } else {
+            resultContent.className = 'p-4 rounded-lg bg-red-50 text-red-700';
+            resultContent.textContent = data.message + (data.error ? '\n' + data.error : '');
+        }
+    } catch (error) {
+        resultDiv.classList.remove('hidden');
+        resultContent.className = 'p-4 rounded-lg bg-red-50 text-red-700';
+        resultContent.textContent = '请求失败: ' + error.message;
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '运行 Pipeline';
+        loadSystemStatus();
+        loadRecentArticles();
+    }
+});
+
+// 发布文章
+document.getElementById('btn-publish').addEventListener('click', async function() {
+    const btn = this;
+    const resultDiv = document.getElementById('publish-result');
+    const resultContent = resultDiv.querySelector('div');
+    
+    btn.disabled = true;
+    btn.textContent = '发布中...';
+    resultDiv.classList.add('hidden');
+    
+    try {
+        const response = await fetch('/api/publish', { method: 'POST' });
+        const data = await response.json();
+        
+        resultDiv.classList.remove('hidden');
+        if (data.status === 'success') {
+            resultContent.className = 'p-4 rounded-lg bg-green-50 text-green-700';
+            resultContent.textContent = data.message;
+        } else {
+            resultContent.className = 'p-4 rounded-lg bg-red-50 text-red-700';
+            resultContent.textContent = data.message + (data.error ? '\n' + data.error : '');
+        }
+    } catch (error) {
+        resultDiv.classList.remove('hidden');
+        resultContent.className = 'p-4 rounded-lg bg-red-50 text-red-700';
+        resultContent.textContent = '请求失败: ' + error.message;
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '发布文章';
+    }
+});
+
+// 加载最近文章
+async function loadRecentArticles() {
+    try {
+        const response = await fetch('/api/articles?limit=5');
+        const data = await response.json();
+        
+        const container = document.getElementById('recent-articles');
+        if (data.articles.length === 0) {
+            container.innerHTML = '<div class="text-gray-500">暂无文章</div>';
+            return;
+        }
+        
+        container.innerHTML = data.articles.map(article => `
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                    <a href="/article/${article.id}" class="text-indigo-600 hover:text-indigo-500 font-medium">
+                        ${article.title}
+                    </a>
+                    <div class="text-sm text-gray-500">
+                        ${article.category || ''} · ${article.source_type || ''}
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-lg font-bold ${article.score >= 8 ? 'text-green-600' : article.score >= 6 ? 'text-yellow-600' : 'text-gray-600'}">
+                        ${article.score || '-'}
+                    </div>
+                    <div class="text-xs text-gray-400">${article.created_at ? article.created_at.substring(0, 10) : ''}</div>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('加载最近文章失败:', error);
+    }
+}
+
+// 加载自动发布状态
+async function loadAutoPublishStatus() {
+    try {
+        const response = await fetch('/api/settings/auto-publish');
+        const data = await response.json();
+        
+        const toggle = document.getElementById('auto-publish-toggle');
+        const status = document.getElementById('auto-publish-status');
+        const configDiv = document.getElementById('auto-publish-config');
+        
+        if (data.enabled) {
+            toggle.classList.add('bg-indigo-600');
+            toggle.classList.remove('bg-gray-200');
+            toggle.querySelector('span').classList.add('translate-x-5');
+            toggle.querySelector('span').classList.remove('translate-x-1');
+            toggle.setAttribute('aria-checked', 'true');
+            status.textContent = '已开启';
+            status.className = 'mt-3 text-sm text-green-600';
+            configDiv.classList.remove('hidden');
+        } else {
+            toggle.classList.remove('bg-indigo-600');
+            toggle.classList.add('bg-gray-200');
+            toggle.querySelector('span').classList.remove('translate-x-5');
+            toggle.querySelector('span').classList.add('translate-x-1');
+            toggle.setAttribute('aria-checked', 'false');
+            status.textContent = '已关闭 - 需要手动发布文章';
+            status.className = 'mt-3 text-sm text-gray-500';
+            configDiv.classList.add('hidden');
+        }
+        
+        // 加载配置
+        if (data.config) {
+            document.getElementById('select-strategy').value = data.config.strategy || 'highest_score';
+            document.getElementById('min-score').value = data.config.min_score || '8';
+            document.getElementById('publish-count').value = data.config.publish_count || '1';
+        }
+    } catch (error) {
+        console.error('加载自动发布状态失败:', error);
+    }
+}
+
+// 切换自动发布状态
+async function toggleAutoPublish() {
+    const toggle = document.getElementById('auto-publish-toggle');
+    const isEnabled = toggle.getAttribute('aria-checked') === 'true';
+    
+    try {
+        const response = await fetch('/api/settings/auto-publish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ enabled: !isEnabled })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            loadAutoPublishStatus();
+        } else {
+            alert('设置失败: ' + (data.message || '未知错误'));
+        }
+    } catch (error) {
+        alert('请求失败: ' + error.message);
+    }
+}
+
+// 更新自动发布配置
+async function updateAutoPublishConfig() {
+    const config = {
+        enabled: true,
+        strategy: document.getElementById('select-strategy').value,
+        min_score: parseInt(document.getElementById('min-score').value),
+        publish_count: parseInt(document.getElementById('publish-count').value)
+    };
+    
+    try {
+        const response = await fetch('/api/settings/auto-publish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(config)
+        });
+        
+        const data = await response.json();
+        
+        if (!data.success) {
+            alert('保存配置失败: ' + (data.message || '未知错误'));
+        }
+    } catch (error) {
+        alert('请求失败: ' + error.message);
+    }
+}
+
+// 加载 Token 使用统计
+async function loadTokenStats() {
+    try {
+        const response = await fetch('/api/token-stats');
+        const data = await response.json();
+
+        // 更新今日统计
+        const today = data.today || {};
+        document.getElementById('today-requests').textContent = (today.requests || 0).toLocaleString();
+        document.getElementById('today-tokens').textContent = (today.total_tokens || 0).toLocaleString();
+        document.getElementById('today-cost').textContent = '$' + (today.estimated_cost_usd || 0).toFixed(4);
+
+        // 更新总计
+        document.getElementById('stat-requests').textContent = data.total.requests.toLocaleString();
+        document.getElementById('stat-total-tokens').textContent = data.total.total_tokens.toLocaleString();
+        document.getElementById('stat-input-tokens').textContent = data.total.prompt_tokens.toLocaleString();
+        document.getElementById('stat-cost').textContent = '$' + (data.total.estimated_cost_usd || 0).toFixed(4);
+
+        // 更新按提供商统计
+        const providerStatsDiv = document.getElementById('provider-stats');
+        const providerListDiv = document.getElementById('provider-stats-list');
+
+        if (Object.keys(data.by_provider).length > 0) {
+            providerStatsDiv.classList.remove('hidden');
+            providerListDiv.innerHTML = Object.entries(data.by_provider).map(([name, stats]) => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div class="font-medium text-gray-900">${name}</div>
+                    <div class="text-sm text-gray-600">
+                        ${stats.requests} 次请求 · ${stats.total_tokens.toLocaleString()} tokens
+                    </div>
+                </div>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('加载 Token 统计失败:', error);
+    }
+}
+
+// 加载 Pipeline 运行历史
+async function loadPipelineHistory() {
+    try {
+        const response = await fetch('/api/pipeline/history?limit=5');
+        const data = await response.json();
+
+        const container = document.getElementById('pipeline-history');
+        if (data.history.length === 0) {
+            container.innerHTML = '<div class="text-gray-500 text-sm">暂无运行记录</div>';
+            return;
+        }
+
+        container.innerHTML = data.history.map(record => `
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center ${record.success ? 'bg-green-100' : 'bg-red-100'}">
+                        ${record.success ?
+                            '<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>' :
+                            '<svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>'}
+                    </div>
+                    <div>
+                        <div class="font-medium text-gray-900">${record.success ? '成功' : '失败'}</div>
+                        <div class="text-xs text-gray-500">${new Date(record.started_at).toLocaleString('zh-CN')}</div>
+                    </div>
+                </div>
+                <div class="text-sm text-gray-600">${record.duration_seconds}s</div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('加载 Pipeline 历史失败:', error);
+    }
+}
+
+// 加载 AI 调用记录
+async function loadAICallLog() {
+    try {
+        const response = await fetch('/api/ai-call-log?limit=15');
+        const data = await response.json();
+
+        const container = document.getElementById('ai-call-log');
+        if (data.calls.length === 0) {
+            container.innerHTML = '<div class="text-gray-500 text-sm">暂无调用记录</div>';
+            return;
+        }
+
+        container.innerHTML = data.calls.map(call => `
+            <div class="flex items-center justify-between p-2 bg-gray-50 rounded text-sm">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">${call.provider}</span>
+                    <span class="text-gray-600">${call.model}</span>
+                </div>
+                <div class="flex items-center gap-4 text-gray-500">
+                    <span>${call.total_tokens} tokens</span>
+                    ${call.cost_usd !== null ? `<span>$${call.cost_usd}</span>` : ''}
+                    <span class="text-xs">${new Date(call.timestamp).toLocaleTimeString('zh-CN')}</span>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('加载 AI 调用记录失败:', error);
+    }
+}
+
+// 页面加载时执行
+document.addEventListener('DOMContentLoaded', function() {
+    loadSystemStatus();
+    loadRecentArticles();
+    loadAutoPublishStatus();
+    loadTokenStats();
+    loadPipelineHistory();
+    loadAICallLog();
+});
+</script>
+{% endblock %}
