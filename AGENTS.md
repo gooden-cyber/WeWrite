@@ -418,16 +418,6 @@ python scripts/scheduler.py --test   # 测试模式（立即执行一次）
 }
 ```
 
-### macOS launchd（可选）
-
-```bash
-# 加载定时任务
-launchctl load ~/Library/LaunchAgents/com.kailiang.ai-kb-collect.plist
-
-# 手动触发
-launchctl start com.kailiang.ai-kb-collect
-```
-
 ## 14. 红线（绝对禁止的操作）
 
 1. **禁止硬编码敏感信息**：API 密钥、Token、密码等必须通过环境变量或配置文件读取

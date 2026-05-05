@@ -204,6 +204,12 @@ WeWrite/
 └─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
 ```
 
+### 功能结构图：
+
+<p align="center">
+  <img src="assets/architecture.png" alt="AI Knowledge Base" width="100%">
+</p>
+
 ## 知识条目格式
 
 ```json
@@ -229,20 +235,6 @@ WeWrite/
 python scripts/generate_knowledge_site.py
 # 输出: site/knowledge/
 # 浏览器打开: site/knowledge/index.html
-```
-
-### 定时任务（macOS）
-
-```bash
-# 加载定时任务
-launchctl load ~/Library/LaunchAgents/com.kailiang.ai-kb-collect.plist
-launchctl load ~/Library/LaunchAgents/com.kailiang.ai-kb-analyze.plist
-
-# 查看状态
-launchctl list | grep kailiang
-
-# 手动触发
-launchctl start com.kailiang.ai-kb-collect
 ```
 
 ### 查看日志

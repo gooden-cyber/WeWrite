@@ -1,22 +1,5 @@
 """四步知识库自动化流水线。macos系统推荐使用launchd设置定时任务，具体目录在：mkdir -p ~/Library/LaunchAgents
 
-配置文件：
-- ~/Library/LaunchAgents/com.kailiang.ai-kb-collect.plist - 每天 08:00 采集
-- ~/Library/LaunchAgents/com.kailiang.ai-kb-analyze.plist - 每周日 10:00 分析
-状态：
-launchctl list | grep kailiang
-# -	0	com.kailiang.ai-kb-analyze
-# -	0	com.kailiang.ai-kb-collect
-常用命令：
-# 手动触发采集
-launchctl start com.kailiang.ai-kb-collect
-# 查看日志
-tail -f logs/collect.log
-# 暂停任务
-launchctl unload ~/Library/LaunchAgents/com.kailiang.ai-kb-collect.plist
-# 重新启用
-launchctl load ~/Library/LaunchAgents/com.kailiang.ai-kb-collect.plist
-
 Step 1: 采集（Collect）— 从 GitHub Search API 和 RSS 源采集 AI 相关内容
 Step 2: 分析（Analyze）— 调用 LLM 对每条内容进行摘要/评分/标签分析
 Step 3: 整理（Organize）— 去重 + 格式标准化 + 校验
