@@ -1,0 +1,38 @@
+{
+  "id": "d90a0377-0c46-4dc3-90ac-a935a5ad8808",
+  "title": "TransformerOptimus/SuperAGI",
+  "source_url": "https://github.com/TransformerOptimus/SuperAGI",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 17493,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "agi",
+      "ai",
+      "artificial-general-intelligence",
+      "artificial-intelligence",
+      "autonomous-agents",
+      "gpt-4",
+      "hacktoberfest",
+      "llm",
+      "llmops",
+      "nextjs",
+      "openai",
+      "pinecone",
+      "python",
+      "superagi"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335919+00:00"
+  },
+  "content": "<⚡️> SuperAGI - A dev-first open source autonomous AI agent framework. Enabling developers to build, manage & run useful autonomous agents quickly and reliably.",
+  "summary": "<⚡️> SuperAGI - A dev-first open source autonomous AI agent framework. Enabling developers to build, manage & run useful autonomous agents quickly and reliably.",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394757+00:00",
+  "updated_at": "2026-05-05T00:11:20.394757+00:00"
+}

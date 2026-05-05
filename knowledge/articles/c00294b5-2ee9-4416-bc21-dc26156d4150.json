@@ -1,0 +1,28 @@
+{
+  "id": "c00294b5-2ee9-4416-bc21-dc26156d4150",
+  "title": "pydantic/pydantic-ai",
+  "source_url": "https://github.com/pydantic/pydantic-ai",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 16765,
+    "language": "Python",
+    "topics": [
+      "agent-framework",
+      "genai",
+      "llm",
+      "pydantic",
+      "python"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335924+00:00"
+  },
+  "content": "AI Agent Framework, the Pydantic way",
+  "summary": "AI Agent Framework, the Pydantic way",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394799+00:00",
+  "updated_at": "2026-05-05T00:11:20.394799+00:00"
+}

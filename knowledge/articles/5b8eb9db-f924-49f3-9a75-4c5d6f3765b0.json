@@ -1,0 +1,32 @@
+{
+  "id": "5b8eb9db-f924-49f3-9a75-4c5d6f3765b0",
+  "title": "PrivClaw – Open-source self-hostable AI plugin marketplace (FastAPI and Next.js)",
+  "source_url": "https://github.com/geneleo537-afk/privclaw",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 04:17:12 +0000",
+    "collected_at": "2026-05-01T07:55:45.476651+00:00"
+  },
+  "content": "Article URL: https://github.com/geneleo537-afk/privclaw\nComments URL: https://news.ycombinator.com/item?id=47971245\nPoints: 1\n# Comments: 0",
+  "summary": "PrivClaw 是一个开源的、可自托管的 AI 插件市场，基于 FastAPI 和 Next.js 构建。该项目旨在为用户提供一个私有的、可定制的 AI 插件平台，允许用户自主部署和管理 AI 插件，从而增强数据隐私和安全性。",
+  "key_points": [
+    "PrivClaw 是一个开源的自托管 AI 插件市场。",
+    "技术栈包括 FastAPI 和 Next.js。",
+    "主要优势在于数据隐私和自主可控。"
+  ],
+  "tags": [
+    "开源项目",
+    "AI插件市场",
+    "自托管",
+    "FastAPI",
+    "Next.js"
+  ],
+  "category": "开源项目",
+  "score": 6,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079801+00:00",
+  "updated_at": "2026-05-01T07:57:33.079801+00:00"
+}

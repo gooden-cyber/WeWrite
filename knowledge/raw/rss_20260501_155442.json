@@ -1,0 +1,47 @@
+[
+  {
+    "source": "rss",
+    "source_id": "8b5f9786-6278-44f8-9672-70c5cd8aadfe",
+    "title": "'Completely horrible': UK job hunters share frustration with AI interviews",
+    "url": "https://www.theguardian.com/technology/2026/may/01/uk-job-hunters-frustration-ai-interviews",
+    "description": "Article URL: https://www.theguardian.com/technology/2026/may/01/uk-job-hunters-frustration-ai-interviews\nComments URL: https://news.ycombinator.com/item?id=47971923\nPoints: 5\n# Comments: 4",
+    "published_at": "Fri, 01 May 2026 06:52:57 +0000",
+    "collected_at": "2026-05-01T07:54:42.837006+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "a5d3f574-918a-4707-b66e-228b865a041c",
+    "title": "Ask HN: Bedrock,Vertex AI etc. Support Anthropic Models",
+    "url": "https://news.ycombinator.com/item?id=47971901",
+    "description": "Is the mechanism more like a smart proxy or do these cloud providers host and serve Anthropic models? if latter, how do they work ? How does Anthropic protect model weights ?\n\nComments URL: https://news.ycombinator.com/item?id=47971901\nPoints: 1\n# Comments: 0",
+    "published_at": "Fri, 01 May 2026 06:49:00 +0000",
+    "collected_at": "2026-05-01T07:54:42.837058+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "2abef00b-708b-49e7-8a78-4d87e6d7cf67",
+    "title": "The AI supply crunch is here",
+    "url": "https://www.economist.com/leaders/2026/04/30/the-ai-supply-crunch-is-here",
+    "description": "Article URL: https://www.economist.com/leaders/2026/04/30/the-ai-supply-crunch-is-here\nComments URL: https://news.ycombinator.com/item?id=47971827\nPoints: 3\n# Comments: 1",
+    "published_at": "Fri, 01 May 2026 06:34:15 +0000",
+    "collected_at": "2026-05-01T07:54:42.837094+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "645ae800-65ed-4c01-948f-92248115e256",
+    "title": "Reunderstanding the Power of AI Through Reverse Engineering",
+    "url": "https://blog.huli.tw/2026/04/18/en/ai-reverse-engineering-op/",
+    "description": "Article URL: https://blog.huli.tw/2026/04/18/en/ai-reverse-engineering-op/\nComments URL: https://news.ycombinator.com/item?id=47971741\nPoints: 1\n# Comments: 0",
+    "published_at": "Fri, 01 May 2026 06:13:54 +0000",
+    "collected_at": "2026-05-01T07:54:42.837130+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "229b89d7-b355-4909-b1dd-d15231f028c8",
+    "title": "AI Tips and Tricks",
+    "url": "https://www.youtube.com/watch?v=w_m5RmVsmtE",
+    "description": "Article URL: https://www.youtube.com/watch?v=w_m5RmVsmtE\nComments URL: https://news.ycombinator.com/item?id=47971410\nPoints: 2\n# Comments: 0",
+    "published_at": "Fri, 01 May 2026 04:52:24 +0000",
+    "collected_at": "2026-05-01T07:54:42.837162+00:00"
+  }
+]

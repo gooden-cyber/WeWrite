@@ -1,0 +1,24 @@
+[
+  {
+    "source": "rss",
+    "source_id": "8eb25c76-f076-43b9-8b24-9fba8c51e54a",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "AI Self-preferencing in Algorithmic Hiring: Empirical Evidence and Insights",
+    "url": "https://arxiv.org/abs/2509.00462",
+    "description": "Article URL: https://arxiv.org/abs/2509.00462\nComments URL: https://news.ycombinator.com/item?id=47987256\nPoints: 315\n# Comments: 170",
+    "published_at": "Sat, 02 May 2026 15:28:13 +0000",
+    "collected_at": "2026-05-03T00:00:26.607310+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "266c1611-9d6b-4ec5-9bda-12880c2ea8db",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Commandry - A Command-Line Parser for Standard ML",
+    "url": "https://github.com/PerplexSystems/commandry",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/kccoly/commandry_command_line_parser_for\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Sat, 27 Dec 2025 08:51:13 -0600",
+    "collected_at": "2026-05-03T00:00:27.942160+00:00"
+  }
+]

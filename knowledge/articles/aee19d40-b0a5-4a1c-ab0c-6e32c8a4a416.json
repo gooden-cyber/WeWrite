@@ -1,0 +1,39 @@
+{
+  "id": "aee19d40-b0a5-4a1c-ab0c-6e32c8a4a416",
+  "title": "confident-ai/deepeval",
+  "source_url": "https://github.com/confident-ai/deepeval",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 15090,
+    "language": "Python",
+    "topics": [
+      "evaluation-framework",
+      "evaluation-metrics",
+      "llm-evaluation",
+      "llm-evaluation-framework",
+      "llm-evaluation-metrics",
+      "python"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335929+00:00"
+  },
+  "content": "The LLM Evaluation Framework",
+  "summary": "deepeval 是一个用于评估大型语言模型（LLM）的开源框架，基于 Python 开发。它提供了全面的评估指标和工具，帮助开发者衡量 LLM 的性能、准确性和可靠性。该项目在 GitHub 上拥有超过 15000 颗星，社区活跃，适用于需要系统化评估 LLM 输出的场景。",
+  "key_points": [
+    "专为 LLM 评估设计的框架，提供标准化评估指标",
+    "基于 Python，易于集成到现有工作流",
+    "社区活跃，GitHub 星数超过 15000，表明广泛认可"
+  ],
+  "tags": [
+    "LLM评估",
+    "开源框架",
+    "Python",
+    "评估指标",
+    "AI工具"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079481+00:00",
+  "updated_at": "2026-05-01T07:57:33.079481+00:00"
+}

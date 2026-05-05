@@ -1,0 +1,32 @@
+{
+  "id": "bcb41a7e-fe17-418b-be66-3007c03be6c2",
+  "title": "Task-Specific LLM Evals That Do and Don't Work",
+  "source_url": "https://eugeneyan.com/writing/evals/",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 04:33:40 +0000",
+    "collected_at": "2026-05-01T07:52:47.030038+00:00"
+  },
+  "content": "Article URL: https://eugeneyan.com/writing/evals/\nComments URL: https://news.ycombinator.com/item?id=47971328\nPoints: 1\n# Comments: 0",
+  "summary": "本文探讨了针对特定任务的大型语言模型（LLM）评估方法的有效性。作者通过实际案例分析了哪些评估方法有效，哪些无效，并提供了构建可靠评估体系的实用建议。文章强调了评估指标与任务目标对齐的重要性，以及避免常见陷阱如过度依赖自动化指标或忽略上下文。内容涵盖分类、生成、推理等任务的评估策略，旨在帮助开发者更准确地衡量模型性能。",
+  "key_points": [
+    "分析了LLM评估中有效与无效的方法，强调任务对齐。",
+    "提供构建可靠评估体系的实用建议，避免常见陷阱。",
+    "涵盖分类、生成、推理等任务的评估策略。"
+  ],
+  "tags": [
+    "LLM评估",
+    "任务特定评估",
+    "模型性能",
+    "评估方法",
+    "实用指南"
+  ],
+  "category": "技术动态",
+  "score": 8,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:53:41.370486+00:00",
+  "updated_at": "2026-05-01T07:53:41.370486+00:00"
+}

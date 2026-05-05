@@ -1,0 +1,29 @@
+{
+  "id": "ef53ecae-ef42-45ef-a965-9c3e25f6e994",
+  "title": "confident-ai/deepeval",
+  "source_url": "https://github.com/confident-ai/deepeval",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 15090,
+    "language": "Python",
+    "topics": [
+      "evaluation-framework",
+      "evaluation-metrics",
+      "llm-evaluation",
+      "llm-evaluation-framework",
+      "llm-evaluation-metrics",
+      "python"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335929+00:00"
+  },
+  "content": "The LLM Evaluation Framework",
+  "summary": "The LLM Evaluation Framework",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394839+00:00",
+  "updated_at": "2026-05-05T00:11:20.394839+00:00"
+}

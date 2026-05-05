@@ -1,0 +1,29 @@
+{
+  "id": "d5899ea1-d667-4f16-9f83-597bfd3ba37d",
+  "title": "openai/openai-agents-python",
+  "source_url": "https://github.com/openai/openai-agents-python",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 25652,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "ai",
+      "framework",
+      "llm",
+      "openai",
+      "python"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335913+00:00"
+  },
+  "content": "A lightweight, powerful framework for multi-agent workflows",
+  "summary": "A lightweight, powerful framework for multi-agent workflows",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394714+00:00",
+  "updated_at": "2026-05-05T00:11:20.394714+00:00"
+}

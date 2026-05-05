@@ -1,0 +1,33 @@
+{
+  "id": "5f2f004d-1c67-4904-966d-dc0e586f733b",
+  "title": "Ask HN: In the age of AI do we need to learn how to code?",
+  "source_url": "https://news.ycombinator.com/item?id=47971273",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 04:23:37 +0000",
+    "collected_at": "2026-05-01T07:55:45.476583+00:00"
+  },
+  "content": "First off i am a software engineer. I had been a developer with C and Rust. In the old days we have to learn a lot a bout these languages even assembly. My days we only focus on C while still have to touch assembly a bit. I saw my frd's kid in college only learning python and a little bit C. I feel like after LLM and ai coding in the future people will skip the C. While I doubt and consider it would cause problem cause lacking of fundermental it seems it's the trend.\n\nComments URL: https://news.",
+  "summary": "一位经验丰富的软件工程师在Hacker News上发起讨论，反思AI时代学习编程的必要性。他本人精通C和Rust，甚至接触过汇编，但观察到年轻一代（如朋友的孩子）仅学习Python和少量C。他认为随着LLM和AI编码工具的普及，未来人们可能跳过C等底层语言，但担心缺乏底层基础会带来问题。尽管如此，他承认这似乎是趋势。",
+  "key_points": [
+    "作者是经验丰富的软件工程师，精通C和Rust，曾接触汇编。",
+    "观察到年轻一代仅学习Python和少量C，底层语言学习减少。",
+    "认为AI编码工具可能导致跳过C等底层语言，但担心缺乏基础会引发问题。",
+    "承认这是趋势，但持怀疑态度。"
+  ],
+  "tags": [
+    "AI时代",
+    "编程教育",
+    "底层语言",
+    "技术趋势",
+    "软件工程"
+  ],
+  "category": "技术动态",
+  "score": 8,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079784+00:00",
+  "updated_at": "2026-05-01T07:57:33.079784+00:00"
+}

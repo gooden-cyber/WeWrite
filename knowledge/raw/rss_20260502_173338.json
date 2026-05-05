@@ -1,0 +1,222 @@
+[
+  {
+    "source": "rss",
+    "source_id": "cf4e6254-aa46-4421-a0c8-258334e79d6a",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "AI uses less water than the public thinks",
+    "url": "https://californiawaterblog.com/2026/04/26/ai-water-use-distractions-and-lessons-for-california/",
+    "description": "Article URL: https://californiawaterblog.com/2026/04/26/ai-water-use-distractions-and-lessons-for-california/\nComments URL: https://news.ycombinator.com/item?id=47977383\nPoints: 375\n# Comments: 349",
+    "published_at": "Fri, 01 May 2026 17:18:58 +0000",
+    "collected_at": "2026-05-02T09:33:37.075293+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "74dd35f0-8c28-4922-b946-1b74d736cabc",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "Spotify adds 'Verified' badges to distinguish human artists from AI",
+    "url": "https://www.bbc.com/news/articles/c5yerr4m1yno",
+    "description": "Article URL: https://www.bbc.com/news/articles/c5yerr4m1yno\nComments URL: https://news.ycombinator.com/item?id=47976856\nPoints: 243\n# Comments: 268",
+    "published_at": "Fri, 01 May 2026 16:42:41 +0000",
+    "collected_at": "2026-05-02T09:33:37.075344+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "45450655-eea0-4d74-afda-9e102fce910d",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "Uber torches 2026 AI budget on Claude Code in four months",
+    "url": "https://www.briefs.co/news/uber-torches-entire-2026-ai-budget-on-claude-code-in-four-months/",
+    "description": "Article URL: https://www.briefs.co/news/uber-torches-entire-2026-ai-budget-on-claude-code-in-four-months/\nComments URL: https://news.ycombinator.com/item?id=47976415\nPoints: 379\n# Comments: 452",
+    "published_at": "Fri, 01 May 2026 16:08:53 +0000",
+    "collected_at": "2026-05-02T09:33:37.075381+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "c51b01e3-3626-4739-a591-b23c38d4b039",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "Apple accidentally left Claude.md files Apple Support app",
+    "url": "https://x.com/aaronp613/status/2049986504617820551",
+    "description": "https://xcancel.com/aaronp613/status/2049986504617820551\n\nComments URL: https://news.ycombinator.com/item?id=47973378\nPoints: 372\n# Comments: 310",
+    "published_at": "Fri, 01 May 2026 11:08:32 +0000",
+    "collected_at": "2026-05-02T09:33:37.075411+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "13976bc2-cca9-4dd9-8c88-8879a0f3da8f",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "Shai-Hulud Themed Malware Found in the PyTorch Lightning AI Training Library",
+    "url": "https://semgrep.dev/blog/2026/malicious-dependency-in-pytorch-lightning-used-for-ai-training/",
+    "description": "Also: https://socket.dev/blog/lightning-pypi-package-compromised\n\nComments URL: https://news.ycombinator.com/item?id=47964617\nPoints: 458\n# Comments: 177",
+    "published_at": "Thu, 30 Apr 2026 16:09:26 +0000",
+    "collected_at": "2026-05-02T09:33:37.075442+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "7e019584-5790-4147-90c6-13d1d054a499",
+    "source_name": "Hacker News Best (AI)",
+    "category": "综合技术",
+    "title": "Claude Code refuses requests or charges extra if your commits mention \"OpenClaw\"",
+    "url": "https://twitter.com/theo/status/2049645973350363168",
+    "description": "https://xcancel.com/theo/status/2049645973350363168\n\nComments URL: https://news.ycombinator.com/item?id=47963204\nPoints: 1318\n# Comments: 708",
+    "published_at": "Thu, 30 Apr 2026 14:36:58 +0000",
+    "collected_at": "2026-05-02T09:33:37.075470+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "45ac7a09-2f8d-4902-8ece-ec5a6487d410",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Reimplementing the Space Protocol Stack from Scratch",
+    "url": "https://gazagnaire.org/blog/2026-04-15-ccsds-protocol-stack.html",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/htdiau/reimplementing_space_protocol_stack\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Thu, 16 Apr 2026 03:40:23 -0500",
+    "collected_at": "2026-05-02T09:33:38.109924+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "3c90c49f-0c6b-45c4-ba36-a09cd13bd067",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "A Proposal for Voluntary AI Disclosure in OCaml Code",
+    "url": "https://anil.recoil.org/notes/opam-ai-disclosure",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/fqtput/proposal_for_voluntary_ai_disclosure\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Fri, 03 Apr 2026 16:56:30 -0500",
+    "collected_at": "2026-05-02T09:33:38.109951+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "f4172c06-8025-418f-a813-7a60cd828484",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "A CSS Engine in OCaml",
+    "url": "https://gazagnaire.org/blog/2026-04-02-cascade.html",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/6rq90r/css_engine_ocaml\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Thu, 02 Apr 2026 21:14:29 -0500",
+    "collected_at": "2026-05-02T09:33:38.109965+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "5d2ba148-8f8b-45e5-ab2b-32350fb6cb26",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "OxCaml Labs",
+    "url": "https://anil.recoil.org/projects/oxcaml",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/wnuuoj/oxcaml_labs\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Sun, 29 Mar 2026 17:36:35 -0500",
+    "collected_at": "2026-05-02T09:33:38.109978+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "941fae61-da56-49d2-9aef-eedcf81b5d56",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Your First Parser",
+    "url": "https://davesnx.github.io/parseff/guides/first-parser/",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/ogjhf1/your_first_parser\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Wed, 25 Mar 2026 12:02:45 -0500",
+    "collected_at": "2026-05-02T09:33:38.109990+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "772f9ac0-a468-46d8-8784-8debbe770d9f",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Lessons from Pyre that Shaped Pyrefly",
+    "url": "https://pyrefly.org/blog/lessons-from-pyre/",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/quoee0/lessons_from_pyre_shaped_pyrefly\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Tue, 24 Mar 2026 07:18:16 -0500",
+    "collected_at": "2026-05-02T09:33:38.110003+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "518eb9ee-fe71-4be3-9435-8cc7e3616b56",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "RE#: how we built the world's fastest regex engine in F#",
+    "url": "https://iev.ee/blog/resharp-how-we-built-the-fastest-regex-in-fsharp/",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/46iep3/re_how_we_built_world_s_fastest_regex\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Wed, 04 Mar 2026 08:25:15 -0600",
+    "collected_at": "2026-05-02T09:33:38.110016+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "26cdff94-63cf-4060-b971-ae4111bf8904",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Alice the Caml",
+    "url": "https://www.gridbugs.org/alice-the-caml/",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/mhgciz/alice_caml\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Mon, 09 Feb 2026 00:53:58 -0600",
+    "collected_at": "2026-05-02T09:33:38.110028+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "d686e640-f209-48fe-8c7d-773b9f9ce589",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "My (very) fast zero-allocation webserver using OxCaml",
+    "url": "https://anil.recoil.org/notes/oxcaml-httpz",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/uveyjh/my_very_fast_zero_allocation_webserver\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Sun, 01 Feb 2026 15:57:17 -0600",
+    "collected_at": "2026-05-02T09:33:38.110040+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "cf04f383-a1ca-42e9-b2f3-a04364cd004c",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Crane is a new extraction system from Rocq to C++",
+    "url": "https://github.com/bloomberg/crane",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/cvqjov/crane_is_new_extraction_system_from_rocq_c\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Tue, 20 Jan 2026 12:31:38 -0600",
+    "collected_at": "2026-05-02T09:33:38.110053+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "f770c18f-52f6-43fc-98a6-941523dc88f0",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "What would make OCaml serverless ready?",
+    "url": "https://www.chrisarmstrong.dev/posts/what-would-make-ocaml-serverless-ready",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/rnxxln/what_would_make_ocaml_serverless_ready\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Wed, 07 Jan 2026 22:10:34 -0600",
+    "collected_at": "2026-05-02T09:33:38.110065+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "4d2879df-aa54-4f3e-87dd-306779ca332b",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Fun with Algebraic Effects - from Toy Examples to Hardcaml Simulations",
+    "url": "https://blog.janestreet.com/fun-with-algebraic-effects-hardcaml/",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/zqly8y/fun_with_algebraic_effects_from_toy\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Wed, 07 Jan 2026 22:05:27 -0600",
+    "collected_at": "2026-05-02T09:33:38.110077+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "219fec73-f4df-4edc-85ee-39a5f0f8871f",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "Zero heap allocation HTTP server using OxCaml",
+    "url": "https://github.com/avsm/httpz",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/uqsbvk/zero_heap_allocation_http_server_using\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Tue, 06 Jan 2026 11:00:30 -0600",
+    "collected_at": "2026-05-02T09:33:38.110090+00:00"
+  },
+  {
+    "source": "rss",
+    "source_id": "9f35d5c1-cb6e-49ae-afda-838b5432d7af",
+    "source_name": "Lobsters AI/ML",
+    "category": "综合技术",
+    "title": "minikv: A little KV store implementation in OCaml to practice DB systems things",
+    "url": "https://github.com/alpha-convert/minikv",
+    "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/7f58yw/minikv_little_kv_store_implementation\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+    "published_at": "Sat, 03 Jan 2026 18:38:03 -0600",
+    "collected_at": "2026-05-02T09:33:38.110102+00:00"
+  }
+]

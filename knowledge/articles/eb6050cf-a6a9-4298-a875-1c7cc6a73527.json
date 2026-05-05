@@ -1,0 +1,45 @@
+{
+  "id": "eb6050cf-a6a9-4298-a875-1c7cc6a73527",
+  "title": "raga-ai-hub/RagaAI-Catalyst",
+  "source_url": "https://github.com/raga-ai-hub/RagaAI-Catalyst",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 16148,
+    "language": "Python",
+    "topics": [
+      "agentic-ai",
+      "agentic-ai-development",
+      "agentneo",
+      "agents",
+      "ai-agent-monitoring",
+      "ai-application-debugging",
+      "ai-evaluation-tools",
+      "ai-performance-optimization",
+      "ai-tool-interaction-monitoring",
+      "llm-testing",
+      "llm-tracing",
+      "llmops"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335927+00:00"
+  },
+  "content": "Python SDK for Agent AI Observability, Monitoring and Evaluation Framework. Includes features like agent, llm and tools tracing, debugging multi-agentic system, self-hosted dashboard and advanced analytics with timeline and execution graph view ",
+  "summary": "RagaAI-Catalyst 是一个用于智能体 AI 的可观测性、监控和评估框架的 Python SDK。它支持智能体、大语言模型和工具的追踪，多智能体系统调试，自托管仪表板，以及带有时间线和执行图视图的高级分析功能。该项目在 GitHub 上拥有 16148 颗星，主要面向智能体 AI 开发、LLM 追踪和 AI 性能优化等领域。",
+  "key_points": [
+    "提供智能体 AI 的可观测性、监控和评估框架",
+    "支持智能体、LLM 和工具的追踪与调试",
+    "包含自托管仪表板和高级分析功能"
+  ],
+  "tags": [
+    "智能体AI",
+    "可观测性",
+    "LLM追踪",
+    "多智能体系统",
+    "AI评估"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079463+00:00",
+  "updated_at": "2026-05-01T07:57:33.079463+00:00"
+}

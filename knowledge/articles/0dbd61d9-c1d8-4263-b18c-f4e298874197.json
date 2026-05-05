@@ -1,0 +1,54 @@
+{
+  "id": "0dbd61d9-c1d8-4263-b18c-f4e298874197",
+  "title": "neuml/txtai",
+  "source_url": "https://github.com/neuml/txtai",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 12449,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "ai",
+      "ai-agents",
+      "embeddings",
+      "information-retrieval",
+      "language-model",
+      "large-language-models",
+      "llm",
+      "nlp",
+      "python",
+      "rag",
+      "retrieval-augmented-generation",
+      "search",
+      "search-engine",
+      "semantic-search",
+      "sentence-embeddings",
+      "transformers",
+      "txtai",
+      "vector-database",
+      "vector-search"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335938+00:00"
+  },
+  "content": "💡 All-in-one AI framework for semantic search, LLM orchestration and language model workflows",
+  "summary": "txtai 是一个全能的 AI 框架，专注于语义搜索、大语言模型编排和语言模型工作流。它集成了嵌入、信息检索、RAG、向量搜索等功能，支持构建智能代理和 NLP 应用。该项目在 GitHub 上拥有超过 1.2 万星标，采用 Python 开发，适合需要快速集成语义搜索和 LLM 工作流的开发者。",
+  "key_points": [
+    "全能 AI 框架，支持语义搜索、LLM 编排和语言模型工作流",
+    "集成嵌入、信息检索、RAG、向量搜索等核心功能",
+    "GitHub 星标超过 1.2 万，社区活跃度高",
+    "基于 Python，易于集成和扩展"
+  ],
+  "tags": [
+    "AI框架",
+    "语义搜索",
+    "RAG",
+    "LLM编排",
+    "向量数据库"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079540+00:00",
+  "updated_at": "2026-05-01T07:57:33.079540+00:00"
+}

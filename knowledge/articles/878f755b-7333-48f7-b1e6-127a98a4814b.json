@@ -1,0 +1,32 @@
+{
+  "id": "878f755b-7333-48f7-b1e6-127a98a4814b",
+  "title": "Ask HN: Bedrock,Vertex AI etc. Support Anthropic Models",
+  "source_url": "https://news.ycombinator.com/item?id=47971901",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 06:49:00 +0000",
+    "collected_at": "2026-05-01T07:54:42.837058+00:00"
+  },
+  "content": "Is the mechanism more like a smart proxy or do these cloud providers host and serve Anthropic models? if latter, how do they work ? How does Anthropic protect model weights ?\n\nComments URL: https://news.ycombinator.com/item?id=47971901\nPoints: 1\n# Comments: 0",
+  "summary": "用户询问AWS Bedrock和Google Vertex AI等云服务提供商对Anthropic模型的支持机制：是作为智能代理转发请求，还是实际托管和提供模型服务？如果是后者，它们如何运作？Anthropic如何保护模型权重？该问题在Hacker News上发布，目前有1个点赞但无评论。",
+  "key_points": [
+    "探讨云服务商对Anthropic模型的支持模式",
+    "关注模型权重的保护机制",
+    "涉及智能代理与直接托管的区别"
+  ],
+  "tags": [
+    "Anthropic",
+    "云服务",
+    "模型托管",
+    "模型安全",
+    "AI基础设施"
+  ],
+  "category": "技术动态",
+  "score": 6,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:55:08.490838+00:00",
+  "updated_at": "2026-05-01T07:55:08.490838+00:00"
+}

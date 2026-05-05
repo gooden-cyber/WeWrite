@@ -1,0 +1,38 @@
+{
+  "id": "6ce3bf2b-0c67-40a1-887a-4802b0e6c2e5",
+  "title": "pydantic/pydantic-ai",
+  "source_url": "https://github.com/pydantic/pydantic-ai",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 16765,
+    "language": "Python",
+    "topics": [
+      "agent-framework",
+      "genai",
+      "llm",
+      "pydantic",
+      "python"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335924+00:00"
+  },
+  "content": "AI Agent Framework, the Pydantic way",
+  "summary": "Pydantic AI 是一个基于 Pydantic 的 AI Agent 框架，旨在提供一种简洁、类型安全的方式来构建和部署 AI 代理。它利用 Pydantic 的数据验证和序列化能力，使得定义代理的输入、输出和行为更加直观和可靠。该项目在 GitHub 上获得了 16765 颗星，表明其受到广泛关注和认可。",
+  "key_points": [
+    "基于 Pydantic 构建，提供类型安全的 AI Agent 开发体验",
+    "简化 AI 代理的输入输出定义和行为管理",
+    "在 GitHub 上拥有高星标，社区活跃度高"
+  ],
+  "tags": [
+    "AI Agent",
+    "Pydantic",
+    "LLM",
+    "Python",
+    "框架"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079446+00:00",
+  "updated_at": "2026-05-01T07:57:33.079446+00:00"
+}

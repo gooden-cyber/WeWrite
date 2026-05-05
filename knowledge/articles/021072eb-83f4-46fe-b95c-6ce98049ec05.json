@@ -1,0 +1,33 @@
+{
+  "id": "021072eb-83f4-46fe-b95c-6ce98049ec05",
+  "title": "run-llama/llama_index",
+  "source_url": "https://github.com/run-llama/llama_index",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 49070,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "application",
+      "data",
+      "fine-tuning",
+      "framework",
+      "llamaindex",
+      "llm",
+      "multi-agents",
+      "rag",
+      "vector-database"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335896+00:00"
+  },
+  "content": "LlamaIndex is the leading document agent and OCR platform",
+  "summary": "LlamaIndex is the leading document agent and OCR platform",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394618+00:00",
+  "updated_at": "2026-05-05T00:11:20.394618+00:00"
+}

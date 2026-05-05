@@ -1,0 +1,11 @@
+{
+  "source": "rss",
+  "source_id": "9f35d5c1-cb6e-49ae-afda-838b5432d7af",
+  "source_name": "Lobsters AI/ML",
+  "category": "综合技术",
+  "title": "minikv: A little KV store implementation in OCaml to practice DB systems things",
+  "url": "https://github.com/alpha-convert/minikv",
+  "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/7f58yw/minikv_little_kv_store_implementation\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+  "published_at": "Sat, 03 Jan 2026 18:38:03 -0600",
+  "collected_at": "2026-05-02T09:33:38.110102+00:00"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "44cece37-8084-4cd9-aab5-2d1d132c25ec",
+  "title": "run-llama/llama_index",
+  "source_url": "https://github.com/run-llama/llama_index",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 49070,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "application",
+      "data",
+      "fine-tuning",
+      "framework",
+      "llamaindex",
+      "llm",
+      "multi-agents",
+      "rag",
+      "vector-database"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:52:45.741466+00:00"
+  },
+  "content": "LlamaIndex is the leading document agent and OCR platform",
+  "summary": "LlamaIndex 是一个领先的文档代理和 OCR 平台，基于 Python 开发，拥有 49070 颗星。它专注于构建基于大型语言模型（LLM）的应用程序，支持代理、数据微调、多代理系统、检索增强生成（RAG）和向量数据库等功能。作为开源框架，LlamaIndex 为开发者提供了高效处理文档和构建智能应用的工具。",
+  "key_points": [
+    "领先的文档代理和 OCR 平台",
+    "基于 Python，拥有 49070 星",
+    "支持代理、微调、多代理、RAG 和向量数据库"
+  ],
+  "tags": [
+    "LlamaIndex",
+    "RAG",
+    "LLM"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:53:41.370387+00:00",
+  "updated_at": "2026-05-01T07:53:41.370387+00:00"
+}

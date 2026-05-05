@@ -1,0 +1,22 @@
+{
+  "id": "9842e7c3-f442-450c-8cfd-29fd4e218ce0",
+  "title": "Zero heap allocation HTTP server using OxCaml",
+  "source_url": "https://github.com/avsm/httpz",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Tue, 06 Jan 2026 11:00:30 -0600",
+    "collected_at": "2026-05-02T09:33:38.110090+00:00"
+  },
+  "content": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/uqsbvk/zero_heap_allocation_http_server_using\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+  "summary": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/uqsbvk/zero_heap_allocation_http_server_using\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394379+00:00",
+  "updated_at": "2026-05-05T00:11:20.394379+00:00"
+}

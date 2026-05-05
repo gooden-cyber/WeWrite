@@ -1,0 +1,22 @@
+{
+  "id": "ce05114c-f938-4137-a20b-034d1aa81834",
+  "title": "minikv: A little KV store implementation in OCaml to practice DB systems things",
+  "source_url": "https://github.com/alpha-convert/minikv",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Sat, 03 Jan 2026 18:38:03 -0600",
+    "collected_at": "2026-05-02T09:33:38.110102+00:00"
+  },
+  "content": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/7f58yw/minikv_little_kv_store_implementation\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+  "summary": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/7f58yw/minikv_little_kv_store_implementation\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394388+00:00",
+  "updated_at": "2026-05-05T00:11:20.394388+00:00"
+}

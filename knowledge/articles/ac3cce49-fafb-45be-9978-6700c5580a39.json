@@ -1,0 +1,33 @@
+{
+  "id": "ac3cce49-fafb-45be-9978-6700c5580a39",
+  "title": "Enabling privacy-preserving AI training on everyday devices",
+  "source_url": "https://news.mit.edu/2026/enabling-privacy-preserving-ai-training-everyday-devices-0429",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 01:31:49 +0000",
+    "collected_at": "2026-05-01T07:55:45.476932+00:00"
+  },
+  "content": "Article URL: https://news.mit.edu/2026/enabling-privacy-preserving-ai-training-everyday-devices-0429\nComments URL: https://news.ycombinator.com/item?id=47970405\nPoints: 2\n# Comments: 0",
+  "summary": "麻省理工学院（MIT）的研究人员开发了一种新技术，使得在普通日常设备（如手机、笔记本电脑）上进行隐私保护的AI训练成为可能。该方法通过优化联邦学习和差分隐私等隐私保护技术，降低了计算和通信开销，从而让设备在本地训练模型时无需将敏感数据上传到云端。这项研究有望在保护用户隐私的同时，推动AI在边缘设备上的广泛应用。",
+  "key_points": [
+    "MIT开发了在普通设备上实现隐私保护AI训练的新技术",
+    "通过优化联邦学习和差分隐私降低计算与通信开销",
+    "允许设备本地训练模型，无需上传敏感数据到云端",
+    "推动AI在边缘设备上的隐私安全应用"
+  ],
+  "tags": [
+    "隐私保护",
+    "联邦学习",
+    "边缘AI",
+    "差分隐私",
+    "MIT"
+  ],
+  "category": "技术动态",
+  "score": 8,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079912+00:00",
+  "updated_at": "2026-05-01T07:57:33.079912+00:00"
+}

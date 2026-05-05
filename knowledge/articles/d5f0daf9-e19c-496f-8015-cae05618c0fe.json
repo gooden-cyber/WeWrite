@@ -1,0 +1,42 @@
+{
+  "id": "d5f0daf9-e19c-496f-8015-cae05618c0fe",
+  "title": "huggingface/transformers",
+  "source_url": "https://github.com/huggingface/transformers",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 160133,
+    "language": "Python",
+    "topics": [
+      "audio",
+      "deep-learning",
+      "deepseek",
+      "gemma",
+      "glm",
+      "hacktoberfest",
+      "llm",
+      "machine-learning",
+      "model-hub",
+      "natural-language-processing",
+      "nlp",
+      "pretrained-models",
+      "python",
+      "pytorch",
+      "pytorch-transformers",
+      "qwen",
+      "speech-recognition",
+      "transformer",
+      "vlm"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335867+00:00"
+  },
+  "content": "🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. ",
+  "summary": "🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. ",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394572+00:00",
+  "updated_at": "2026-05-05T00:11:20.394572+00:00"
+}

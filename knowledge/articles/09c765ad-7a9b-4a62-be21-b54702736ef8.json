@@ -1,0 +1,33 @@
+{
+  "id": "09c765ad-7a9b-4a62-be21-b54702736ef8",
+  "title": "LLM Summaries Are Ruining Your Learning",
+  "source_url": "https://arpitbhayani.me/blogs/do-not-rely-on-summaries/",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 04:44:42 +0000",
+    "collected_at": "2026-05-01T07:52:47.029950+00:00"
+  },
+  "content": "Article URL: https://arpitbhayani.me/blogs/do-not-rely-on-summaries/\nComments URL: https://news.ycombinator.com/item?id=47971373\nPoints: 1\n# Comments: 0",
+  "summary": "本文探讨了过度依赖大型语言模型（LLM）生成的摘要对学习的负面影响。作者认为，虽然LLM摘要能快速提供信息概览，但会削弱深度理解、批判性思维和知识内化过程。文章强调，真正的学习需要主动阅读、思考和实践，而非被动接受简化内容。建议读者将摘要作为辅助工具，而非替代完整阅读。",
+  "key_points": [
+    "LLM摘要可能阻碍深度学习和理解",
+    "过度依赖摘要会削弱批判性思维能力",
+    "真正的学习需要主动阅读和思考",
+    "摘要应作为辅助工具而非替代品"
+  ],
+  "tags": [
+    "LLM",
+    "学习",
+    "摘要",
+    "批判性思维",
+    "知识内化"
+  ],
+  "category": "技术动态",
+  "score": 8,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:53:41.370465+00:00",
+  "updated_at": "2026-05-01T07:53:41.370465+00:00"
+}

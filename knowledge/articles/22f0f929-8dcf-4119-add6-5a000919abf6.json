@@ -1,0 +1,11 @@
+{
+  "source": "rss",
+  "source_id": "13976bc2-cca9-4dd9-8c88-8879a0f3da8f",
+  "source_name": "Hacker News Best (AI)",
+  "category": "综合技术",
+  "title": "Shai-Hulud Themed Malware Found in the PyTorch Lightning AI Training Library",
+  "url": "https://semgrep.dev/blog/2026/malicious-dependency-in-pytorch-lightning-used-for-ai-training/",
+  "description": "Also: https://socket.dev/blog/lightning-pypi-package-compromised\n\nComments URL: https://news.ycombinator.com/item?id=47964617\nPoints: 458\n# Comments: 177",
+  "published_at": "Thu, 30 Apr 2026 16:09:26 +0000",
+  "collected_at": "2026-05-02T09:33:37.075442+00:00"
+}

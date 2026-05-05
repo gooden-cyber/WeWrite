@@ -1,0 +1,13 @@
+# AI 知识库助手 - Python 依赖
+# 核心依赖
+httpx>=0.27.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+schedule>=1.2.0
+
+# 图像处理（配图生成）
+pillow>=10.0.0
+
+# 可选依赖
+# matplotlib>=3.7.0  # 用于图表生成
+# seaborn>=0.12.0    # 用于高级图表

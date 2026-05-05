@@ -1,0 +1,11 @@
+{
+  "source": "rss",
+  "source_id": "219fec73-f4df-4edc-85ee-39a5f0f8871f",
+  "source_name": "Lobsters AI/ML",
+  "category": "综合技术",
+  "title": "Zero heap allocation HTTP server using OxCaml",
+  "url": "https://github.com/avsm/httpz",
+  "description": "&lt;p&gt;&lt;a href=\"https://lobste.rs/s/uqsbvk/zero_heap_allocation_http_server_using\"&gt;Comments&lt;/a&gt;&lt;/p&gt;",
+  "published_at": "Tue, 06 Jan 2026 11:00:30 -0600",
+  "collected_at": "2026-05-02T09:33:38.110090+00:00"
+}

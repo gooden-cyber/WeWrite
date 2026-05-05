@@ -1,0 +1,43 @@
+{
+  "id": "6cfeadb6-28be-41ff-b40d-82d58ea92148",
+  "title": "QuivrHQ/quivr",
+  "source_url": "https://github.com/QuivrHQ/quivr",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 39121,
+    "language": "Python",
+    "topics": [
+      "ai",
+      "api",
+      "chatbot",
+      "chatgpt",
+      "database",
+      "docker",
+      "framework",
+      "frontend",
+      "groq",
+      "html",
+      "javascript",
+      "llm",
+      "openai",
+      "postgresql",
+      "privacy",
+      "rag",
+      "react",
+      "security",
+      "typescript",
+      "vector"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335899+00:00"
+  },
+  "content": "Opiniated RAG for integrating GenAI in your apps 🧠   Focus on your product rather than the RAG. Easy integration in existing products with customisation!  Any LLM: GPT4, Groq, Llama. Any Vectorstore: PGVector, Faiss. Any Files. Anyway you want.",
+  "summary": "Opiniated RAG for integrating GenAI in your apps 🧠   Focus on your product rather than the RAG. Easy integration in existing products with customisation!  Any LLM: GPT4, Groq, Llama. Any Vectorstore: ",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394627+00:00",
+  "updated_at": "2026-05-05T00:11:20.394627+00:00"
+}

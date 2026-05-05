@@ -1,0 +1,56 @@
+{
+  "id": "94e42d8e-03cb-4b0b-898b-e125a82978ac",
+  "title": "langchain-ai/langgraph",
+  "source_url": "https://github.com/langchain-ai/langgraph",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 30953,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "ai",
+      "ai-agents",
+      "chatgpt",
+      "deepagents",
+      "enterprise",
+      "framework",
+      "gemini",
+      "generative-ai",
+      "langchain",
+      "langgraph",
+      "llm",
+      "multiagent",
+      "open-source",
+      "openai",
+      "pydantic",
+      "python",
+      "rag"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335905+00:00"
+  },
+  "content": "Build resilient language agents as graphs.",
+  "summary": "LangGraph 是一个由 LangChain 团队开发的开源框架，用于构建弹性的语言代理，并将其表示为图结构。该项目在 GitHub 上拥有超过 30,000 颗星，支持 Python 语言，广泛应用于 AI 代理、多代理系统、生成式 AI 和 RAG 等场景。它集成了 LangChain、OpenAI、Gemini 等主流 LLM 平台，并利用 Pydantic 进行数据验证，适合企业级和开源项目。",
+  "key_points": [
+    "LangGraph 是一个用于构建弹性语言代理的图结构框架",
+    "由 LangChain 团队开发，支持 Python，拥有 30,953 颗星",
+    "集成 OpenAI、Gemini、LangChain 等主流 LLM 平台",
+    "适用于多代理系统、企业级应用和 RAG 场景"
+  ],
+  "tags": [
+    "LangGraph",
+    "AI代理",
+    "图结构",
+    "多代理系统",
+    "生成式AI",
+    "RAG",
+    "LangChain",
+    "Python",
+    "开源"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079335+00:00",
+  "updated_at": "2026-05-01T07:57:33.079335+00:00"
+}

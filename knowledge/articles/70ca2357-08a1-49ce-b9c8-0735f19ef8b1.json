@@ -1,0 +1,22 @@
+{
+  "id": "70ca2357-08a1-49ce-b9c8-0735f19ef8b1",
+  "title": "What do you think of people buying Mac mini's to run AI?",
+  "source_url": "https://news.ycombinator.com/item?id=47971335",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 04:34:50 +0000",
+    "collected_at": "2026-05-01T07:55:45.476400+00:00"
+  },
+  "content": "Today during Apple's earnings call we heard they're out of mac mini's and back ordered due to huge surge in demand.We know barely any decent size models can run on it. Most of the buyers are buying to run Openclaw in complete isolation from their regular desktops or laptops.A VPS for few dollars/month will be sufficient to run tools like Openclaw.What are your thoughts on why people buying mac minis?\n\nComments URL: https://news.ycombinator.com/item?id=47971335\nPoints: 1\n# Comments: 5",
+  "summary": "Today during Apple's earnings call we heard they're out of mac mini's and back ordered due to huge surge in demand.We know barely any decent size models can run on it. Most of the buyers are buying to",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394467+00:00",
+  "updated_at": "2026-05-05T00:11:20.394467+00:00"
+}

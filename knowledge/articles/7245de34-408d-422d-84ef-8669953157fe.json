@@ -1,0 +1,52 @@
+{
+  "id": "7245de34-408d-422d-84ef-8669953157fe",
+  "title": "pathwaycom/pathway",
+  "source_url": "https://github.com/pathwaycom/pathway",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 63369,
+    "language": "Python",
+    "topics": [
+      "batch-processing",
+      "data-analytics",
+      "data-pipelines",
+      "data-processing",
+      "dataflow",
+      "etl",
+      "etl-framework",
+      "iot-analytics",
+      "kafka",
+      "machine-learning-algorithms",
+      "pathway",
+      "python",
+      "real-time",
+      "rust",
+      "stream-processing",
+      "streaming",
+      "time-series-analysis"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335890+00:00"
+  },
+  "content": "Python ETL framework for stream processing, real-time analytics, LLM pipelines, and RAG.",
+  "summary": "Pathway是一个基于Python的ETL框架，专注于流处理、实时分析、LLM管道和RAG应用。该项目在GitHub上拥有超过6.3万颗星，使用Python和Rust开发，支持批处理、数据管道、物联网分析、Kafka集成、机器学习算法和时序分析等多种功能。它提供了一个高效的数据处理框架，适用于实时数据流和复杂ETL场景。",
+  "key_points": [
+    "Python ETL框架，支持流处理和实时分析",
+    "集成LLM管道和RAG功能",
+    "支持Kafka、物联网分析和机器学习算法",
+    "使用Python和Rust开发，性能高效",
+    "GitHub Stars超过6.3万，社区活跃"
+  ],
+  "tags": [
+    "ETL框架",
+    "流处理",
+    "实时分析",
+    "LLM管道",
+    "RAG"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079238+00:00",
+  "updated_at": "2026-05-01T07:57:33.079238+00:00"
+}

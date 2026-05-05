@@ -1,0 +1,27 @@
+{
+  "id": "a87b0102-2f8e-4d16-a183-09fe698f0ee1",
+  "title": "GreyDGL/PentestGPT",
+  "source_url": "https://github.com/GreyDGL/PentestGPT",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 12892,
+    "language": "Python",
+    "topics": [
+      "large-language-models",
+      "llm",
+      "penetration-testing",
+      "python"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335935+00:00"
+  },
+  "content": "Automated Penetration Testing Agentic Framework Powered by Large Language Models",
+  "summary": "Automated Penetration Testing Agentic Framework Powered by Large Language Models",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394880+00:00",
+  "updated_at": "2026-05-05T00:11:20.394880+00:00"
+}

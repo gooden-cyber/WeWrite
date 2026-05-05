@@ -1,0 +1,33 @@
+{
+  "id": "2e04516c-e060-457d-a505-670fb17ea627",
+  "title": "What do you think of people buying Mac mini's to run AI?",
+  "source_url": "https://news.ycombinator.com/item?id=47971335",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 04:34:50 +0000",
+    "collected_at": "2026-05-01T07:52:47.030015+00:00"
+  },
+  "content": "Today during Apple's earnings call we heard they're out of mac mini's and back ordered due to huge surge in demand.We know barely any decent size models can run on it. Most of the buyers are buying to run Openclaw in complete isolation from their regular desktops or laptops.A VPS for few dollars/month will be sufficient to run tools like Openclaw.What are your thoughts on why people buying mac minis?\n\nComments URL: https://news.ycombinator.com/item?id=47971335\nPoints: 1\n# Comments: 5",
+  "summary": "本文讨论了人们购买Mac Mini运行AI的现象，指出其需求激增导致缺货。作者质疑Mac Mini运行大型模型的能力，认为多数买家用于隔离运行Openclaw等工具，而价格低廉的VPS即可满足需求。文章引发对购买动机的思考。",
+  "key_points": [
+    "Mac Mini因AI需求激增而缺货",
+    "大型模型在Mac Mini上运行受限",
+    "多数买家用于隔离运行Openclaw",
+    "VPS可作为低成本替代方案"
+  ],
+  "tags": [
+    "Mac Mini",
+    "AI运行",
+    "Openclaw",
+    "VPS",
+    "需求激增"
+  ],
+  "category": "技术动态",
+  "score": 6,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:53:41.370480+00:00",
+  "updated_at": "2026-05-01T07:53:41.370480+00:00"
+}

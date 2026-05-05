@@ -1,0 +1,43 @@
+{
+  "id": "8a934c80-f6ae-4058-93f1-216bea795d31",
+  "title": "llmware-ai/llmware",
+  "source_url": "https://github.com/llmware-ai/llmware",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 14871,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "generative-ai-tools",
+      "llamacpp",
+      "llm",
+      "onnx",
+      "openvino",
+      "parsing",
+      "retrieval-augmented-generation",
+      "small-specialized-models"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335932+00:00"
+  },
+  "content": "Unified framework for building enterprise RAG pipelines with small, specialized models",
+  "summary": "llmware是一个统一的框架，用于构建企业级RAG（检索增强生成）管道，专注于使用小型专用模型。该项目基于Python开发，在GitHub上获得了14871颗星，支持多种技术如agents、generative-ai-tools、llamacpp、llm、onnx、openvino、parsing等。它旨在通过小型模型实现高效的检索和生成，适合企业场景中的定制化需求。",
+  "key_points": [
+    "提供统一框架构建企业级RAG管道",
+    "专注于小型专用模型，提升效率",
+    "支持多种技术栈，包括llamacpp、onnx等",
+    "高星标（14871）表明社区认可度高"
+  ],
+  "tags": [
+    "RAG",
+    "企业级框架",
+    "小型专用模型",
+    "Python",
+    "检索增强生成"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079500+00:00",
+  "updated_at": "2026-05-01T07:57:33.079500+00:00"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "cfee523a-5a61-4653-82ae-2ae9006e2519",
+  "title": "KV Cache Locality: The Hidden Variable in Your LLM Serving Cost",
+  "source_url": "https://ranvier.systems/2026/04/30/kv-cache-locality-the-hidden-variable-in-your-llm-serving-cost.html",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 02:09:05 +0000",
+    "collected_at": "2026-05-01T07:55:45.476874+00:00"
+  },
+  "content": "Article URL: https://ranvier.systems/2026/04/30/kv-cache-locality-the-hidden-variable-in-your-llm-serving-cost.html\nComments URL: https://news.ycombinator.com/item?id=47970614\nPoints: 3\n# Comments: 0",
+  "summary": "本文探讨了KV缓存局部性对LLM推理服务成本的影响。KV缓存是LLM推理中的关键组件，其访问模式（局部性）直接影响内存带宽利用率和延迟。文章分析了不同局部性场景下的性能差异，指出优化KV缓存局部性可以显著降低服务成本，并提出了几种优化策略，包括缓存预取、内存布局调整和调度优化。",
+  "key_points": [
+    "KV缓存局部性是影响LLM服务成本的关键变量",
+    "局部性差导致内存带宽浪费和延迟增加",
+    "通过缓存预取和内存布局优化可改善局部性",
+    "优化KV缓存局部性可显著降低推理成本"
+  ],
+  "tags": [
+    "LLM推理",
+    "KV缓存",
+    "性能优化",
+    "内存带宽",
+    "服务成本"
+  ],
+  "category": "技术动态",
+  "score": 8,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079895+00:00",
+  "updated_at": "2026-05-01T07:57:33.079895+00:00"
+}

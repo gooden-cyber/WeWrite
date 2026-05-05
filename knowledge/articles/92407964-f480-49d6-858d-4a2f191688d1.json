@@ -1,0 +1,38 @@
+{
+  "id": "92407964-f480-49d6-858d-4a2f191688d1",
+  "title": "GreyDGL/PentestGPT",
+  "source_url": "https://github.com/GreyDGL/PentestGPT",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 12892,
+    "language": "Python",
+    "topics": [
+      "large-language-models",
+      "llm",
+      "penetration-testing",
+      "python"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335935+00:00"
+  },
+  "content": "Automated Penetration Testing Agentic Framework Powered by Large Language Models",
+  "summary": "GreyDGL/PentestGPT 是一个基于大型语言模型（LLM）的自动化渗透测试智能体框架。该项目使用Python开发，在GitHub上获得了12892颗星，主要标签包括大型语言模型、LLM、渗透测试和Python。它利用LLM的能力来自动化渗透测试流程，提高测试效率和智能化水平。",
+  "key_points": [
+    "基于大型语言模型的自动化渗透测试框架",
+    "使用Python开发，GitHub星标12892",
+    "主要标签包括LLM、渗透测试、Python",
+    "旨在提高渗透测试的自动化和智能化水平"
+  ],
+  "tags": [
+    "大型语言模型",
+    "渗透测试",
+    "自动化框架",
+    "Python",
+    "LLM"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079522+00:00",
+  "updated_at": "2026-05-01T07:57:33.079522+00:00"
+}

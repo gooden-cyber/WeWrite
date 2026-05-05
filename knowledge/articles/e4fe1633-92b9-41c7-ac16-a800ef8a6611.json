@@ -1,0 +1,41 @@
+{
+  "id": "e4fe1633-92b9-41c7-ac16-a800ef8a6611",
+  "title": "sgl-project/sglang",
+  "source_url": "https://github.com/sgl-project/sglang",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 26813,
+    "language": "Python",
+    "topics": [
+      "attention",
+      "blackwell",
+      "cuda",
+      "deepseek",
+      "diffusion",
+      "glm",
+      "gpt-oss",
+      "inference",
+      "llama",
+      "llm",
+      "minimax",
+      "moe",
+      "qwen",
+      "qwen-image",
+      "reinforcement-learning",
+      "transformer",
+      "vlm",
+      "wan"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335910+00:00"
+  },
+  "content": "SGLang is a high-performance serving framework for large language models and multimodal models.",
+  "summary": "SGLang is a high-performance serving framework for large language models and multimodal models.",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394695+00:00",
+  "updated_at": "2026-05-05T00:11:20.394695+00:00"
+}

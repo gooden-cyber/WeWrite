@@ -1,0 +1,33 @@
+{
+  "id": "104146ee-ab40-4870-afba-bb57533bdf70",
+  "title": "AI Skills as loader spec, not prompts – why the architecture changes everything",
+  "source_url": "https://internals.laxmena.com/p/what-youre-actually-writing-when",
+  "source_type": "rss",
+  "source_metadata": {
+    "stars": 0,
+    "language": "",
+    "topics": [],
+    "published_at": "Fri, 01 May 2026 01:01:09 +0000",
+    "collected_at": "2026-05-01T07:55:45.477046+00:00"
+  },
+  "content": "Article URL: https://internals.laxmena.com/p/what-youre-actually-writing-when\nComments URL: https://news.ycombinator.com/item?id=47970243\nPoints: 5\n# Comments: 0",
+  "summary": "本文探讨了AI技能作为加载器规范而非提示的重要性，并分析了这种架构变化如何从根本上改变AI系统的设计方式。作者认为，传统的提示方法限制了AI的灵活性和可扩展性，而将技能视为加载器规范能够实现更模块化、可组合的AI系统。这种架构转变使得AI能够更有效地处理复杂任务，并提高系统的可维护性和适应性。",
+  "key_points": [
+    "AI技能应被视为加载器规范而非提示",
+    "架构变化提升了AI系统的灵活性和可扩展性",
+    "模块化设计有助于处理复杂任务",
+    "新架构提高了系统的可维护性和适应性"
+  ],
+  "tags": [
+    "AI架构",
+    "加载器规范",
+    "提示工程",
+    "模块化设计",
+    "系统可扩展性"
+  ],
+  "category": "技术动态",
+  "score": 8,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:57:33.079946+00:00",
+  "updated_at": "2026-05-01T07:57:33.079946+00:00"
+}

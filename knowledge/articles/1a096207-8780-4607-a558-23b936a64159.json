@@ -1,0 +1,41 @@
+{
+  "id": "1a096207-8780-4607-a558-23b936a64159",
+  "title": "langchain-ai/langgraph",
+  "source_url": "https://github.com/langchain-ai/langgraph",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 30953,
+    "language": "Python",
+    "topics": [
+      "agents",
+      "ai",
+      "ai-agents",
+      "chatgpt",
+      "deepagents",
+      "enterprise",
+      "framework",
+      "gemini",
+      "generative-ai",
+      "langchain",
+      "langgraph",
+      "llm",
+      "multiagent",
+      "open-source",
+      "openai",
+      "pydantic",
+      "python",
+      "rag"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:55:44.335905+00:00"
+  },
+  "content": "Build resilient language agents as graphs.",
+  "summary": "Build resilient language agents as graphs.",
+  "key_points": [],
+  "tags": [],
+  "category": "技术动态",
+  "score": 0,
+  "status": "analyzed",
+  "created_at": "2026-05-05T00:11:20.394672+00:00",
+  "updated_at": "2026-05-05T00:11:20.394672+00:00"
+}

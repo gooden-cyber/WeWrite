@@ -1,0 +1,36 @@
+{
+  "id": "2c7c9c37-e733-4184-8d2c-65a1362fad64",
+  "title": "FoundationAgents/MetaGPT",
+  "source_url": "https://github.com/FoundationAgents/MetaGPT",
+  "source_type": "github",
+  "source_metadata": {
+    "stars": 67588,
+    "language": "Python",
+    "topics": [
+      "agent",
+      "gpt",
+      "llm",
+      "metagpt",
+      "multi-agent"
+    ],
+    "published_at": "",
+    "collected_at": "2026-05-01T07:54:40.792377+00:00"
+  },
+  "content": "🌟 The Multi-Agent Framework: First AI Software Company, Towards Natural Language Programming",
+  "summary": "MetaGPT 是一个多智能体框架，旨在模拟一家 AI 软件公司，通过自然语言编程实现软件开发。它利用大型语言模型（LLM）和 GPT 技术，将用户需求转化为代码，支持多智能体协作。该项目在 GitHub 上拥有 67,588 颗星，使用 Python 语言开发，标签包括 agent、gpt、llm、metagpt 和 multi-agent，代表了 AI 编程领域的前沿探索。",
+  "key_points": [
+    "模拟 AI 软件公司，实现多智能体协作",
+    "基于自然语言编程，将需求转化为代码",
+    "高星开源项目，社区活跃，技术前沿"
+  ],
+  "tags": [
+    "多智能体框架",
+    "自然语言编程",
+    "AI 软件公司"
+  ],
+  "category": "开源项目",
+  "score": 9,
+  "status": "analyzed",
+  "created_at": "2026-05-01T07:55:08.490710+00:00",
+  "updated_at": "2026-05-01T07:55:08.490710+00:00"
+}
